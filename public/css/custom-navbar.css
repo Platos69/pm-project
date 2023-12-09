@@ -1,0 +1,41 @@
+.custom-navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: var(--espacamento-interno);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-navbar .logo {
+    background-color: var(--cor-terceira);
+    height: 35px;
+    width: 35px;
+}
+
+.custom-navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.custom-navbar a:hover {
+    color: var(--cor-hovers-button);
+}
+
+.custom-navbar .mid-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; 
+    gap: calc(var(--espacamento-interno) + 5px);
+}
+
+.custom-navbar .mid-content ul li {
+    margin-right: 10px;
+}
+
+.custom-navbar .right-content button {
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid var(--cor-bordas);
+}

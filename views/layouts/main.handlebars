@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="/css/custom-navbar.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="css/{{style}}">
+    <title>{{title}}</title>
+</head>
+<body>
+    <nav>
+        {{#if showNavbar}}
+        {{>_navbar navbarClass='custom-navbar'}}
+        {{/if}}
+    </nav>
+    <main>
+        {{{body}}}
+    </main>
+</body>
+<script src="https://kit.fontawesome.com/4f5c786c9e.js" crossorigin="anonymous"></script>
+<script src="js/{{script}}"></script>
+
+</html>
