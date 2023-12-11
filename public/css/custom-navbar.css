@@ -22,7 +22,12 @@
     color: var(--cor-hovers-button);
 }
 
-.custom-navbar .mid-content ul {
+.custom-navbar .left-content {
+    display: flex;
+    align-items: center;
+}
+
+.custom-navbar .left-content .content ul {
     list-style: none;
     padding: 0;
     margin: 0;
