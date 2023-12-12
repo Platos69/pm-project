@@ -25,11 +25,27 @@
       { name: 'Linguagens e suas tecnologias', url: '/user/knowledge-areas/languages' }
     ];
 
+    // Sub-areas
+      // Humans
+      const knowledgeHumans = [
+        { name: 'Geografia', url: '/user/knowledge-areas/humans/geography' },
+        { name: 'História', url: '/user/knowledge-areas/humans/history' },
+        { name: 'Filosofia', url: '/user/knowledge-areas/humans/philosophy' },
+        { name: 'Sociologia', url: '/user/knowledge-areas/humans/sociology' }
+      ];
+      // Languages
+      const knowledgeLanguages = [
+        { name: 'Artes', url: '/user/knowledge-areas/languages/art' },
+        { name: 'Redação', url: '/user/knowledge-areas/languages/essay' },
+        { name: 'Literatura', url: '/user/knowledge-areas/languages/literature' },
+        { name: 'Português', url: '/user/knowledge-areas/languages/portuguese' }
+      ]
+
 // ROTAS
     // Renderização padrão
     function renderPage(req, res, pageName, templateName) {
       try {
-        res.render(`user/pages/${templateName}`, {
+        res.render(`user/pages/sub-pages/${templateName}`, {
           title: `${pageName} - Page`,
           style: 'areasKnowledge.css',
           showNavbar: true
@@ -64,18 +80,8 @@
             renderPage(req, res, name, name.toLowerCase());
           });
         });
-        // Pages
-          // CODIGO A A SER FEITO//
-          // Sub-pages
-            // Humans
-            router.get('/knowledge-areas/humans/geography', (req, res) => {
-              try {
-                const pageName = 'Geografia';
-                res.render('user/pages/sub-pages/humans/geography', { knowledgeAreas, title: `${pageName} - Page`, style: 'areasKnowledge.css', showNavbar: true });
-              } catch (err) {
-                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-                res.status(500).send('Erro interno do servidor');
-              }
-            });
-
+          // Pages
+          
+            // Sub-pages
+            
 module.exports = router
