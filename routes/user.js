@@ -3,161 +3,79 @@
     const express = require('express')
     const router = express.Router()
     const path = require('path')
+    const app = express()
+    const handlebars = require('express-handlebars')
+    const { engine } = require('express-handlebars')
+
+// CONFIGURAÇÕES
+  // Handlebars
+  app.engine('handlebars', engine({defaultLayout: 'main', runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+    },
+  }),
+  ),
+  app.set('view engine', 'handlebars')
+  // Automatizando link automatico
+    // Areas  
+    const knowledgeAreas = [
+      { name: 'Matemática e suas tecnologias', url: '/user/knowledge-areas/math' },
+      { name: 'Ciências humanas e sociais aplicadas', url: '/user/knowledge-areas/humans' },
+      { name: 'Ciências da natureza e suas tecnologias', url: '/user/knowledge-areas/nature' },
+      { name: 'Linguagens e suas tecnologias', url: '/user/knowledge-areas/languages' }
+    ];
 
 // ROTAS
-    // Áreas do conhecimento 
-    router.get('/knowledge-areas', (req, res) => {
-        try {
-            const pageName = 'Áreas do conhecimento'
-            res.render('user/areas', {  
-                title: pageName +' - Page',
-                style: 'areasKnowledge.css',
-                showNavbar: true
-            }, (err, html) => {
-              if (err) {
-                console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                res.status(500).send('Erro interno do servidor');
-                return;
-              }
-              console.log('[PM] Você entrou na aba "', pageName ,'"');
-              res.send(html);
-            });
-          } catch (err) {
-            console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
+    // Renderização padrão
+    function renderPage(req, res, pageName, templateName) {
+      try {
+        res.render(`user/pages/${templateName}`, {
+          title: `${pageName} - Page`,
+          style: 'areasKnowledge.css',
+          showNavbar: true
+        }, (err, html) => {
+          if (err) {
+            console.error(`[PM] Houve um erro ao renderizar a página "${pageName}" erro:`, err);
             res.status(500).send('Erro interno do servidor');
+            return;
           }
-    })
-        // Matemática 
-        router.get('/knowledge-areas/math', (req, res) => {
-            try {
-                const pageName = 'Matemática'
-                res.render('user/pages/math', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
+          console.log(`[PM] Você entrou na aba "${pageName}"`);
+          res.send(html);
+        });
+      } catch (err) {
+        console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+        res.status(500).send('Erro interno do servidor');
+      }
+    }
+      // Áreas do conhecimento 
+      router.get('/knowledge-areas', (req, res) => {
+        try {
+          const pageName = 'Áreas do conhecimento';
+          res.render('user/areas', { knowledgeAreas, title: `${pageName} - Page`, style: 'areasKnowledge.css', showNavbar: true });
+        } catch (err) {
+          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+          res.status(500).send('Erro interno do servidor');
+        }
+      });
+        // Rotas para páginas específicas
+        knowledgeAreas.forEach(area => {
+          const { name, url } = area;
+          router.get(url, (req, res) => {
+            renderPage(req, res, name, name.toLowerCase());
+          });
+        });
+        // Pages
+          // CODIGO A A SER FEITO//
+          // Sub-pages
+            // Humans
+            router.get('/knowledge-areas/humans/geography', (req, res) => {
+              try {
+                const pageName = 'Geografia';
+                res.render('user/pages/sub-pages/humans/geography', { knowledgeAreas, title: `${pageName} - Page`, style: 'areasKnowledge.css', showNavbar: true });
               } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
+                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
                 res.status(500).send('Erro interno do servidor');
               }
-        })
-        // Humanas 
-        router.get('/knowledge-areas/humans', (req, res) => {
-            try {
-                const pageName = 'Ciências Humanas'
-                res.render('user/pages/humans', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-                res.status(500).send('Erro interno do servidor');
-              }
-        })
-        // Natureza 
-        router.get('/knowledge-areas/nature', (req, res) => {
-            try {
-                const pageName = 'Ciências da Natureza'
-                res.render('user/pages/nature', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-                res.status(500).send('Erro interno do servidor');
-              }
-        })
-        // Linguagens
-        router.get('/knowledge-areas/languages', (req, res) => {
-            try {
-                const pageName = 'Linguagens'
-                res.render('user/pages/languages', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-                res.status(500).send('Erro interno do servidor');
-              }
-        })
-        // Math 
-        router.get('/knowledge-areas/essay', (req, res) => {
-            try {
-                const pageName = 'Redação'
-                res.render('user/pages/essay', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-                res.status(500).send('Erro interno do servidor');
-              }
-        })
-        // Math 
-        router.get('/knowledge-areas/math', (req, res) => {
-            try {
-                const pageName = 'Matemática'
-                res.render('user/pages/math', {  
-                    title: pageName +' - Page',
-                    style: 'general/area.css',
-                    showNavbar: true
-                }, (err, html) => {
-                  if (err) {
-                    console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'" erro:', err);
-                    res.status(500).send('Erro interno do servidor');
-                    return;
-                  }
-                  console.log('[PM] Você entrou na aba "', pageName ,'"');
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-                res.status(500).send('Erro interno do servidor');
-              }
-        })
+            });
 
 module.exports = router

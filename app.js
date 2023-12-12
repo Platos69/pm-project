@@ -7,6 +7,7 @@
     const path = require("path")
     const bodyParser = require('body-parser')
     const mongoose = require('mongoose')
+    const http = require('http');
     const session = require('express-session')
     const flash = require('connect-flash')
     // Definição de rotas
@@ -36,13 +37,13 @@
     }),
     ),
     app.set('view engine', 'handlebars')
-        // Mongoose
-        mongoose.Promise = global.Promise
-        mongoose.connect('mongodb://127.0.0.1:27017/pmProject').then(() => {
-            console.log('[BLOGAPP] Conectado ao banco com sucesso!')
-        }).catch((err) => {
-            console.log(`[BLOGAPP] Erro ao conectar no Banco!\n Erro: ${err}`)
-        })
+        // // Mongoose
+        // mongoose.Promise = global.Promise
+        // mongoose.connect('mongodb://127.0.0.1:27017/pmProject').then(() => {
+        //     console.log('[mongoDB] Conectado ao banco com sucesso!')
+        // }).catch((err) => {
+        //     console.log(`[mongoDB] Erro ao conectar no Banco!\n Erro: ${err}`)
+        // })
     //Public
     app.use(express.static(path.join(__dirname + "/public")))
 
@@ -56,17 +57,17 @@
                 style: 'home.css',
                 showNavbar: true
             }, (err, html) => {
-              if (err) {
-                console.error('[PM] Houve um erro ao renderizar a página "', pageName ,'", erro:', err);
+                if (err) {
+                    console.error(`[PM] Houve um erro ao renderizar a página "${pageName}" erro:`, err);
+                    res.status(500).send('Erro interno do servidor');
+                    return;
+                  }
+                  console.log(`[PM] Você entrou na aba "${pageName}"`);
+                  res.send(html);
+                });
+              } catch (err) {
+                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
                 res.status(500).send('Erro interno do servidor');
-                return;
-              }
-              console.log('[PM] Você entrou na aba "', pageName ,'"');
-              res.send(html);
-            });
-          } catch (err) {
-            console.error('[PM] Houve um erro ao entrar na página "', pageName ,'", erro:', err);
-            res.status(500).send('Erro interno do servidor');
           }
         });
     
@@ -77,5 +78,13 @@
 // OUTROS
 const PORT = 8081
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta http://localhost:${PORT}`)
+    console.log(`[PM] Servidor rodando na porta http://localhost:${PORT}`)
 })
+
+// const server = http.createServer(app);
+// const portReplit = process.env.PORT || 8081;
+
+// server.listen(portReplit, () => {
+//     console.log(`Servidor rodando na ${PORT}`);
+//     console.log(`Replit view: https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/`);
+// });
