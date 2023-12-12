@@ -32,7 +32,7 @@
         { name: 'História', url: '/user/knowledge-areas/humans/history' },
         { name: 'Filosofia', url: '/user/knowledge-areas/humans/philosophy' },
         { name: 'Sociologia', url: '/user/knowledge-areas/humans/sociology' }
-      ];
+      ]
       // Languages
       const knowledgeLanguages = [
         { name: 'Artes', url: '/user/knowledge-areas/languages/art' },
@@ -40,10 +40,16 @@
         { name: 'Literatura', url: '/user/knowledge-areas/languages/literature' },
         { name: 'Português', url: '/user/knowledge-areas/languages/portuguese' }
       ]
+      // Nature
+      const knowledgeNature = [
+        { name: 'Biologia', url: '/user/knowledge-areas/nature/biology'},
+        { name: 'Química', url: '/user/knowledge-areas/nature/chemical'},
+        { name: 'Física', url: '/user/knowledge-areas/nature/physical'}
+      ]
 
 // ROTAS
     // Renderização padrão
-    function renderPage(req, res, pageName, templateName) {
+    function renderPageGeral(req, res, pageName, templateName) {
       try {
         res.render(`user/pages/sub-pages/${templateName}`, {
           title: `${pageName} - Page`,
@@ -77,11 +83,11 @@
         knowledgeAreas.forEach(area => {
           const { name, url } = area;
           router.get(url, (req, res) => {
-            renderPage(req, res, name, name.toLowerCase());
+            renderPageGeral(req, res, name, name.toLowerCase());
           });
         });
           // Pages
-          
+            
             // Sub-pages
             
 module.exports = router
