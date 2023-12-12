@@ -87,7 +87,7 @@
           });
         });
           // Pages
-            
+            /*ADICIONAR O LINK DAS PAGINAS MATH, HUMANS, LANGUAGES, NATURE */
             // Sub-pages
             
 module.exports = router
