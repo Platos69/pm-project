@@ -3,9 +3,13 @@
     
     <ul>
         {{#each knowledgeAreas}}
+            {{#if this}}
             <a href="{{url}}">
                 <li>{{name}}</li>
             </a>
+            {{else}}
+                <h3>Nenhuma área do conhecimento registrada!</h3>
+            {{/if}}
         {{/each}}
     </ul>
 </div>

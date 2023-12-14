@@ -48,13 +48,86 @@
       ]
 
 // ROTAS
-      // Áreas do conhecimento 
-      router.get('/knowledge-areas', (req, res) => {
+// function MainArea(url, directoryRender, areas, pageName, directoryStyle, optionNav) {
+//   router.get(url, (req, res) => {
+//     try {
+//       res.render(directoryRender, { areas, 
+//         title: `${pageName} - Page`,
+//         style: directoryStyle || 'areas-knowledge.css',
+//         showNavbar: optionNav || true });
+//     } catch (err) {
+//       console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+//       res.status(500).send('Erro interno do servidor');
+//     }
+//   });
+// }
+  // Áreas do conhecimento 
+  router.get('/knowledge-areas', (req, res) => {
+    try {
+      const pageName = 'Áreas do conhecimento';
+      res.render('user/areas', { knowledgeAreas, 
+        title: `${pageName} - Page`,
+        style: 'areas-knowledge.css',
+        showNavbar: true });
+        
+    } catch (err) {
+      console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+      res.status(500).send('Erro interno do servidor');
+    }
+  });
+      // Pages
+        // Humanas
+        router.get('/knowledge-areas/humans', (req, res) => {
+          try {
+            const pageName = 'Ciências humanas e Sociais aplicadas';
+            res.render('user/pages/humans', { knowledgeHumans, 
+              title: `${pageName} - Page`,
+              style: '../../css/areas-knowledge.css',
+              showNavbar: true });
+
+          } catch (err) {
+            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+            res.status(500).send('Erro interno do servidor');
+          }
+        });
+
+      // Languages
+      router.get('/knowledge-areas/languages', (req, res) => {
         try {
-          const pageName = 'Áreas do conhecimento';
-          res.render('user/areas', { knowledgeAreas, 
+          const pageName = 'Linguagens e suas tecnologias';
+          res.render('user/pages/languages', { knowledgeLanguages, 
             title: `${pageName} - Page`,
-            style: 'areas-knowledge.css',
+            style: '../../css/areas-knowledge.css',
+            showNavbar: true });
+
+        } catch (err) {
+          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+          res.status(500).send('Erro interno do servidor');
+        }
+      });
+
+      // Natureza
+      router.get('/knowledge-areas/nature', (req, res) => {
+        try {
+          const pageName = 'Ciências da natureza e suas tecnologias';
+          res.render('user/pages/nature', { knowledgeNature, 
+            title: `${pageName} - Page`,
+            style: '../../css/areas-knowledge.css',
+            showNavbar: true });
+
+        } catch (err) {
+          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+          res.status(500).send('Erro interno do servidor');
+        }
+      });
+
+      // Matemática
+      router.get('/knowledge-areas/math', (req, res) => {
+        try {
+          const pageName = 'Matemática';
+          res.render('user/pages/math', { 
+            title: `${pageName} - Page`,
+            style: '../../css/areas-knowledge.css',
             showNavbar: true });
             
         } catch (err) {
@@ -62,68 +135,8 @@
           res.status(500).send('Erro interno do servidor');
         }
       });
-          // Pages
-            // Humanas
-            router.get('/knowledge-areas/humans', (req, res) => {
-              try {
-                const pageName = 'Ciências humanas e Sociais aplicadas';
-                res.render('user/pages/humans', { knowledgeHumans, 
-                  title: `${pageName} - Page`,
-                  style: '../../css/areas-knowledge.css',
-                  showNavbar: true });
+        // Sub-pages
 
-              } catch (err) {
-                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-                res.status(500).send('Erro interno do servidor');
-              }
-            });
-
-          // Languages
-          router.get('/knowledge-areas/languages', (req, res) => {
-            try {
-              const pageName = 'Linguagens e suas tecnologias';
-              res.render('user/pages/languages', { knowledgeLanguages, 
-                title: `${pageName} - Page`,
-                style: '../../css/areas-knowledge.css',
-                showNavbar: true });
-
-            } catch (err) {
-              console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-              res.status(500).send('Erro interno do servidor');
-            }
-          });
-
-          // Natureza
-          router.get('/knowledge-areas/nature', (req, res) => {
-            try {
-              const pageName = 'Ciências da natureza e suas tecnologias';
-              res.render('user/pages/nature', { knowledgeNature, 
-                title: `${pageName} - Page`,
-                style: '../../css/areas-knowledge.css',
-                showNavbar: true });
-
-            } catch (err) {
-              console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-              res.status(500).send('Erro interno do servidor');
-            }
-          });
-
-          // Matemática
-          router.get('/knowledge-areas/math', (req, res) => {
-            try {
-              const pageName = 'Matemática';
-              res.render('user/pages/math', { 
-                title: `${pageName} - Page`,
-                style: '../../css/areas-knowledge.css',
-                showNavbar: true });
-                
-            } catch (err) {
-              console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-              res.status(500).send('Erro interno do servidor');
-            }
-          });
-            // Sub-pages
-
-            //FALTA ISSO PARA FINALIZAÇÃO DOS DADOS LOCAIS//
+        //FALTA ISSO PARA FINALIZAÇÃO DOS DADOS LOCAIS//
             
 module.exports = router
