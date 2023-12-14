@@ -48,94 +48,80 @@
       ]
 
 // ROTAS
-// function MainArea(url, directoryRender, areas, pageName, directoryStyle, optionNav) {
-//   router.get(url, (req, res) => {
-//     try {
-//       res.render(directoryRender, { areas, 
-//         title: `${pageName} - Page`,
-//         style: directoryStyle || 'areas-knowledge.css',
-//         showNavbar: optionNav || true });
-//     } catch (err) {
-//       console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-//       res.status(500).send('Erro interno do servidor');
-//     }
-//   });
-// }
-  // Áreas do conhecimento 
-  router.get('/knowledge-areas', (req, res) => {
+function renderMainPage(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
+  router.get(url, (req, res) => {
     try {
-      const pageName = 'Áreas do conhecimento';
-      res.render('user/areas', { knowledgeAreas, 
+      res.render(directoryRender, {
         title: `${pageName} - Page`,
-        style: 'areas-knowledge.css',
-        showNavbar: true });
-        
+        areas: areas || false, 
+        style: directoryStyle || '../../main-knowledge/css/main-knowledge.css',
+        showNavbar: optionNav || true });
     } catch (err) {
       console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
       res.status(500).send('Erro interno do servidor');
     }
   });
-      // Pages
-        // Humanas
-        router.get('/knowledge-areas/humans', (req, res) => {
-          try {
-            const pageName = 'Ciências humanas e Sociais aplicadas';
-            res.render('user/pages/humans', { knowledgeHumans, 
-              title: `${pageName} - Page`,
-              style: '../../css/areas-knowledge.css',
-              showNavbar: true });
+}
+  // Áreas do conhecimento 
+  renderMainPage(
+    '/knowledge-areas',
+    'user/areas',
+    'Áreas do conhecimento',
+    knowledgeAreas,
+    '../main-knowledge/css/main-knowledge.css'
+);
+    // Pages
+      // Humanas
+      renderMainPage(
+        '/knowledge-areas/humans',
+        'user/pages/humans',
+        'Ciências humanas e sociais aplicadas',
+        knowledgeHumans
+      );
 
-          } catch (err) {
-            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-            res.status(500).send('Erro interno do servidor');
-          }
-        });
-
-      // Languages
-      router.get('/knowledge-areas/languages', (req, res) => {
-        try {
-          const pageName = 'Linguagens e suas tecnologias';
-          res.render('user/pages/languages', { knowledgeLanguages, 
-            title: `${pageName} - Page`,
-            style: '../../css/areas-knowledge.css',
-            showNavbar: true });
-
-        } catch (err) {
-          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-          res.status(500).send('Erro interno do servidor');
-        }
-      });
+      // Linguagens
+      renderMainPage(
+        '/knowledge-areas/languages',
+        'user/pages/languages',
+        'Linguagens e suas tecnologias',
+        knowledgeLanguages
+      );
 
       // Natureza
-      router.get('/knowledge-areas/nature', (req, res) => {
-        try {
-          const pageName = 'Ciências da natureza e suas tecnologias';
-          res.render('user/pages/nature', { knowledgeNature, 
-            title: `${pageName} - Page`,
-            style: '../../css/areas-knowledge.css',
-            showNavbar: true });
-
-        } catch (err) {
-          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-          res.status(500).send('Erro interno do servidor');
-        }
-      });
+      renderMainPage(
+        '/knowledge-areas/nature',
+        'user/pages/nature',
+        'Ciências da natureza e suas tecnologias',
+        knowledgeNature
+      );
 
       // Matemática
-      router.get('/knowledge-areas/math', (req, res) => {
-        try {
-          const pageName = 'Matemática';
-          res.render('user/pages/math', { 
-            title: `${pageName} - Page`,
-            style: '../../css/areas-knowledge.css',
-            showNavbar: true });
-            
-        } catch (err) {
-          console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-          res.status(500).send('Erro interno do servidor');
-        }
-      });
+      renderMainPage(
+        '/knowledge-areas/math',
+        'user/pages/math',
+        'Matemática e suas tecnologias',
+      );
         // Sub-pages
+        function renderSubPages(url, directoryRender, pageName, directoryStyle, optionNav) {
+          router.get(url, (req, res) => {
+            try {
+              res.render(directoryRender, {
+                title: `${pageName} - Page`,
+                style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
+                showNavbar: optionNav || true });
+            } catch (err) {
+              console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+              res.status(500).send('Erro interno do servidor');
+            }
+          });
+        }
+          // Humanas
+            // Historia
+            renderSubPages(
+              '/knowledge-areas/humans/history',
+              'user/pages/sub-pages/humans/history',
+              'História'
+            )
 
         //FALTA ISSO PARA FINALIZAÇÃO DOS DADOS LOCAIS//
             
