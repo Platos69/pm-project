@@ -122,7 +122,72 @@ function renderMainPage(url, directoryRender, pageName, areas, directoryStyle, o
               'user/pages/sub-pages/humans/history',
               'História'
             )
+            // Geografia
+            renderSubPages(
+              '/knowledge-areas/humans/geography',
+              'user/pages/sub-pages/humans/geography',
+              'Geografia'
+            )
+            // Filosofia
+            renderSubPages(
+              '/knowledge-areas/humans/philosophy',
+              'user/pages/sub-pages/humans/philosophy',
+              'Filosofia'
+            )
+            // Sociologia
+            renderSubPages(
+              '/knowledge-areas/humans/sociology',
+              'user/pages/sub-pages/humans/sociology',
+              'Sociologia'
+            )
+        // Linguagens
+          // Artes
+          renderSubPages(
+            '/knowledge-areas/languages/art',
+            'user/pages/sub-pages/languages/art',
+            'Artes'
+          );
 
-        //FALTA ISSO PARA FINALIZAÇÃO DOS DADOS LOCAIS//
+          // Redação
+          renderSubPages(
+            '/knowledge-areas/languages/essay',
+            'user/pages/sub-pages/languages/essay',
+            'Redação'
+          );
+
+          // Literatura
+          renderSubPages(
+            '/knowledge-areas/languages/literature',
+            'user/pages/sub-pages/languages/literature',
+            'Literatura'
+          );
+
+          // Português
+          renderSubPages(
+            '/knowledge-areas/languages/portuguese',
+            'user/pages/sub-pages/languages/portuguese',
+            'Português'
+          );
+      // Natureza
+        // Biologia
+        renderSubPages(
+        '/knowledge-areas/nature/biology',
+        'user/pages/sub-pages/nature/biology',
+        'Biologia'
+        );
+
+        // Química
+        renderSubPages(
+        '/knowledge-areas/nature/chemical',
+        'user/pages/sub-pages/nature/chemical',
+        'Química'
+        );
+
+        // Física
+        renderSubPages(
+        '/knowledge-areas/nature/physical',
+        'user/pages/sub-pages/nature/physical',
+        'Física'
+        );
             
 module.exports = router
