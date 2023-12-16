@@ -7,6 +7,7 @@
     const path = require("path")
     const bodyParser = require('body-parser')
     const mongoose = require('mongoose')
+    const uri = 'mongodb+srv://Pm_Project:Dan%402905@pmproject.niy0xfw.mongodb.net/?retryWrites=true&w=majority'
     const http = require('http');
     const session = require('express-session')
     const flash = require('connect-flash')
@@ -37,13 +38,18 @@
     }),
     ),
     app.set('view engine', 'handlebars')
-        // // Mongoose
-        // mongoose.Promise = global.Promise
-        // mongoose.connect('mongodb://127.0.0.1:27017/pmProject').then(() => {
-        //     console.log('[mongoDB] Conectado ao banco com sucesso!')
-        // }).catch((err) => {
-        //     console.log(`[mongoDB] Erro ao conectar no Banco!\n Erro: ${err}`)
-        // })
+        //Mongoose
+         // Mongoose
+         async function connect() {
+            try {
+                await mongoose.connect(uri)
+                console.log('[PM] Conexão com o banco efetuada com sucesso')
+            } catch (err) {
+                console.log('[PM] Falha ao tentar se conectar ao banco, error: ' + err)               
+            }
+        }
+        
+        connect()
     //Public
     app.use(express.static(path.join(__dirname + "/public")))
 
