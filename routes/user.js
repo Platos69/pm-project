@@ -2,20 +2,9 @@
     // Módulos principais
     const express = require('express')
     const router = express.Router()
-    const path = require('path')
-    const app = express()
     const handlebars = require('express-handlebars')
-    const { engine } = require('express-handlebars')
 
 // CONFIGURAÇÕES
-  // Handlebars
-  app.engine('handlebars', engine({defaultLayout: 'main', runtimeOptions: {
-    allowProtoPropertiesByDefault: true,
-    allowProtoMethodsByDefault: true,
-    },
-  }),
-  ),
-  app.set('view engine', 'handlebars')
   // Automatizando link automatico
     // Areas  
     const knowledgeAreas = [
@@ -48,146 +37,156 @@
       ]
 
 // ROTAS
-function renderMainPage(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
-  router.get(url, (req, res) => {
-    try {
-      res.render(directoryRender, {
-        title: `${pageName} - Page`,
-        areas: areas || false, 
-        style: directoryStyle || '../../main-knowledge/css/main-knowledge.css',
-        showNavbar: optionNav || true });
-    } catch (err) {
-      console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-      res.status(500).send('Erro interno do servidor');
-    }
-  });
-}
-  // Áreas do conhecimento 
-  renderMainPage(
-    '/knowledge-areas',
-    'user/areas',
-    'Áreas do conhecimento',
-    knowledgeAreas,
-    '../main-knowledge/css/main-knowledge.css'
-);
-    // Pages
-      // Humanas
-      renderMainPage(
-        '/knowledge-areas/humans',
-        'user/pages/humans',
-        'Ciências humanas e sociais aplicadas',
-        knowledgeHumans
-      );
 
-      // Linguagens
-      renderMainPage(
-        '/knowledge-areas/languages',
-        'user/pages/languages',
-        'Linguagens e suas tecnologias',
-        knowledgeLanguages
-      );
+  router.get('/form', (req, res) => {
+    res.render('user/forms/form-content-add')
+  })
 
-      // Natureza
-      renderMainPage(
-        '/knowledge-areas/nature',
-        'user/pages/nature',
-        'Ciências da natureza e suas tecnologias',
-        knowledgeNature
-      );
+  // Páginas das áreas do conhecimento
+  function renderMainPage(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
+    router.get(url, (req, res) => {
+      try {
+        const msgSuccess = 'Você está na página: ' + pageName
+        res.render(directoryRender, {
+          title: `${pageName} - Page`,
+          areas: areas || false, 
+          style: directoryStyle || '../../main-knowledge/css/main-knowledge.css',
+          showNavbar: optionNav || true,
+          success_msg: msgSuccess });
+      } catch (err) {
+        console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+        res.status(500).send('Erro interno do servidor');
+      }
+    });
+  }
+    // Áreas do conhecimento 
+    renderMainPage(
+      '/knowledge-areas',
+      'user/areas',
+      'Áreas do conhecimento',
+      knowledgeAreas,
+      '../main-knowledge/css/main-knowledge.css'
+  );
+      // Pages
+        // Humanas
+        renderMainPage(
+          '/knowledge-areas/humans',
+          'user/pages/humans',
+          'Ciências humanas e sociais aplicadas',
+          knowledgeHumans
+        );
 
-      // Matemática
-      renderMainPage(
-        '/knowledge-areas/math',
-        'user/pages/math',
-        'Matemática e suas tecnologias',
-      );
-        // Sub-pages
-        function renderSubPages(url, directoryRender, pageName, directoryStyle, optionNav) {
-          router.get(url, (req, res) => {
-            try {
-              res.render(directoryRender, {
-                title: `${pageName} - Page`,
-                style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
-                showNavbar: optionNav || true });
-            } catch (err) {
-              console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-              res.status(500).send('Erro interno do servidor');
-            }
-          });
-        }
-          // Humanas
-            // Historia
-            renderSubPages(
-              '/knowledge-areas/humans/history',
-              'user/pages/sub-pages/humans/history',
-              'História'
-            )
-            // Geografia
-            renderSubPages(
-              '/knowledge-areas/humans/geography',
-              'user/pages/sub-pages/humans/geography',
-              'Geografia'
-            )
-            // Filosofia
-            renderSubPages(
-              '/knowledge-areas/humans/philosophy',
-              'user/pages/sub-pages/humans/philosophy',
-              'Filosofia'
-            )
-            // Sociologia
-            renderSubPages(
-              '/knowledge-areas/humans/sociology',
-              'user/pages/sub-pages/humans/sociology',
-              'Sociologia'
-            )
         // Linguagens
-          // Artes
-          renderSubPages(
-            '/knowledge-areas/languages/art',
-            'user/pages/sub-pages/languages/art',
-            'Artes'
-          );
-
-          // Redação
-          renderSubPages(
-            '/knowledge-areas/languages/essay',
-            'user/pages/sub-pages/languages/essay',
-            'Redação'
-          );
-
-          // Literatura
-          renderSubPages(
-            '/knowledge-areas/languages/literature',
-            'user/pages/sub-pages/languages/literature',
-            'Literatura'
-          );
-
-          // Português
-          renderSubPages(
-            '/knowledge-areas/languages/portuguese',
-            'user/pages/sub-pages/languages/portuguese',
-            'Português'
-          );
-      // Natureza
-        // Biologia
-        renderSubPages(
-        '/knowledge-areas/nature/biology',
-        'user/pages/sub-pages/nature/biology',
-        'Biologia'
+        renderMainPage(
+          '/knowledge-areas/languages',
+          'user/pages/languages',
+          'Linguagens e suas tecnologias',
+          knowledgeLanguages
         );
 
-        // Química
-        renderSubPages(
-        '/knowledge-areas/nature/chemical',
-        'user/pages/sub-pages/nature/chemical',
-        'Química'
+        // Natureza
+        renderMainPage(
+          '/knowledge-areas/nature',
+          'user/pages/nature',
+          'Ciências da natureza e suas tecnologias',
+          knowledgeNature
         );
 
-        // Física
-        renderSubPages(
-        '/knowledge-areas/nature/physical',
-        'user/pages/sub-pages/nature/physical',
-        'Física'
+        // Matemática
+        renderMainPage(
+          '/knowledge-areas/math',
+          'user/pages/math',
+          'Matemática e suas tecnologias',
         );
+          // Sub-pages
+          function renderSubPages(url, directoryRender, pageName, directoryStyle, optionNav) {
+            router.get(url, (req, res) => {
+              try {
+                const msgSuccess = 'Você está na página: ' + pageName
+                res.render(directoryRender, {
+                  title: `${pageName} - Page`,
+                  style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
+                  showNavbar: optionNav || true,
+                  success_msg: msgSuccess});
+              } catch (err) {
+                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+                res.status(500).send('Erro interno do servidor');
+              }
+            });
+          }
+            // Humanas
+              // Historia
+              renderSubPages(
+                '/knowledge-areas/humans/history',
+                'user/pages/sub-pages/humans/history',
+                'História'
+              )
+              // Geografia
+              renderSubPages(
+                '/knowledge-areas/humans/geography',
+                'user/pages/sub-pages/humans/geography',
+                'Geografia'
+              )
+              // Filosofia
+              renderSubPages(
+                '/knowledge-areas/humans/philosophy',
+                'user/pages/sub-pages/humans/philosophy',
+                'Filosofia'
+              )
+              // Sociologia
+              renderSubPages(
+                '/knowledge-areas/humans/sociology',
+                'user/pages/sub-pages/humans/sociology',
+                'Sociologia'
+              )
+          // Linguagens
+            // Artes
+            renderSubPages(
+              '/knowledge-areas/languages/art',
+              'user/pages/sub-pages/languages/art',
+              'Artes'
+            );
+
+            // Redação
+            renderSubPages(
+              '/knowledge-areas/languages/essay',
+              'user/pages/sub-pages/languages/essay',
+              'Redação'
+            );
+
+            // Literatura
+            renderSubPages(
+              '/knowledge-areas/languages/literature',
+              'user/pages/sub-pages/languages/literature',
+              'Literatura'
+            );
+
+            // Português
+            renderSubPages(
+              '/knowledge-areas/languages/portuguese',
+              'user/pages/sub-pages/languages/portuguese',
+              'Português'
+            );
+        // Natureza
+          // Biologia
+          renderSubPages(
+          '/knowledge-areas/nature/biology',
+          'user/pages/sub-pages/nature/biology',
+          'Biologia'
+          );
+
+          // Química
+          renderSubPages(
+          '/knowledge-areas/nature/chemical',
+          'user/pages/sub-pages/nature/chemical',
+          'Química'
+          );
+
+          // Física
+          renderSubPages(
+          '/knowledge-areas/nature/physical',
+          'user/pages/sub-pages/nature/physical',
+          'Física'
+          );
             
 module.exports = router

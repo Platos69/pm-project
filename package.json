@@ -17,7 +17,6 @@
   "version": "1.0.0",
   "description": "Connection with MongoDB",
   "main": "app.js",
-  "devDependencies": {},
   "author": "Platos69",
   "license": "MIT"
 }

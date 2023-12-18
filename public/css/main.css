@@ -11,11 +11,6 @@
     --cor-terceira: #57575791;
     --cor-bordas: #57575791;
     --cor-hovers-button: #838282;
-
-    /* Espaçamentos */
-    --espacamento-externo: 15px;
-    --espacamento-interno: 10px;
-    --espacamento-texto: 12px;
 }
 
 button {
@@ -25,14 +20,4 @@ button {
 body {
     display: flex;
     flex-direction: column;
-}
-
-nav {
-    background-color: var(--cor-secundaria);
-    display: flex;
-    flex-direction: row;
-}
-
-main {
-    padding: var(--espacamento-externo);
 }

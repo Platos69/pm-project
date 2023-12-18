@@ -7,7 +7,6 @@
     const path = require("path")
     const bodyParser = require('body-parser')
     const mongoose = require('mongoose')
-    const uri = 'mongodb+srv://Pm_Project:Dan%402905@pmproject.niy0xfw.mongodb.net/?retryWrites=true&w=majority'
     const http = require('http');
     const session = require('express-session')
     const flash = require('connect-flash')
@@ -38,16 +37,17 @@
     }),
     ),
     app.set('view engine', 'handlebars')
-        //Mongoose
          // Mongoose
-         async function connect() {
-            try {
-                await mongoose.connect(uri)
-                console.log('[PM] Conexão com o banco efetuada com sucesso')
-            } catch (err) {
-                console.log('[PM] Falha ao tentar se conectar ao banco, error: ' + err)               
+         const uri = 'mongodb://localhost:27017'
+        // const uri = 'mongodb+srv://Pm_Project:Dan%402905@pmproject.niy0xfw.mongodb.net/?retryWrites=true&w=majority'
+            async function connect() {
+                try {
+                    await mongoose.connect(uri)
+                    console.log('[PM] Conexão com o banco efetuada com sucesso')
+                } catch (err) {
+                    console.log('[PM] Falha ao tentar se conectar ao banco, error: ' + err)               
+                }
             }
-        }
         
         connect()
     //Public
@@ -58,28 +58,28 @@
     app.get('/', (req, res) => {
         try {
             const pageName = 'Home'
+            const msgSuccess = 'Você está na página: ' + pageName
             res.render('index', {
-                title: pageName +' - Page',
+                title: `${pageName} - Page`,
                 style: 'home.css',
-                showNavbar: true
+                showNavbar: true,
+                success_msg: msgSuccess,
             }, (err, html) => {
                 if (err) {
                     console.error(`[PM] Houve um erro ao renderizar a página "${pageName}" erro:`, err);
                     res.status(500).send('Erro interno do servidor');
                     return;
-                  }
-                  console.log(`[PM] Você entrou na aba "${pageName}"`);
-                  res.send(html);
-                });
-              } catch (err) {
-                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-                res.status(500).send('Erro interno do servidor');
-          }
-        });
-    
+                }
+                res.send(html);
+                console.log(`[PM] Você entrou na aba "${pageName}"`);
+            });
+        } catch (err) {
+            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+            res.status(500).send('Erro interno do servidor');
+        }
+    });
     // User
     app.use('/user', user)
-
 
 // OUTROS
 const PORT = 8081

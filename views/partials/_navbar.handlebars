@@ -1,26 +1,34 @@
 <div class="{{navbarClass}}">
-        <div class="left-content">
-                <a href="/">
-                        <div class="logo">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">PM</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
 
-                        </div>
-                        <div class="content">
-                                <ul>
-                                        <a href="/user/knowledge-areas">
-                                                <li>Áreas do conhecimento</li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                        <a class="nav-link" href="/user/knowledge-areas">Área do conhecimento<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item dropdown mx-n2">
+                                        <a class="nav-link dropdown-toggle" href="/user/knowledge-areas" id="navbarDropdown" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                
                                         </a>
-                                        <a href="#">
-                                                <li>Item 2</li>
-                                        </a>
-                                        <a href="#">
-                                                <li>Item 3</li>
-                                        </a>
-                                </ul>
-                        </div>
-                </a>
-        </div>
-        <div class="right-content">
-                <a href="#"><button id="btn-login">Login</button></a>
-                <a href="#"><button id="btn-register">Registrar-se</button></a>
-        </div>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="/user/knowledge-areas/languages">Linguagens</a>
+                                                <a class="dropdown-item" href="/user/knowledge-areas/math">Matemática</a>
+                                                <a class="dropdown-item" href="/user/knowledge-areas/humans">Ciências Humanas</a>    
+                                                <a class="dropdown-item" href="/user/knowledge-areas/nature">Ciências da Natureza</a>
+                                        </div>
+                                </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-success my-2 mx-2 my-sm-0" type="submit">Entrar</button>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Registrar-se</button>
+                        </form>
+                </div>
+        </nav>
 </div>
