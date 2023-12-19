@@ -37,17 +37,13 @@
       ]
 
 // ROTAS
-
-  router.get('/form', (req, res) => {
-    res.render('user/forms/form-content-add')
-  })
-
   // Páginas das áreas do conhecimento
   function renderMainPage(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
     router.get(url, (req, res) => {
       try {
         const msgSuccess = 'Você está na página: ' + pageName
         res.render(directoryRender, {
+          name: pageName,
           title: `${pageName} - Page`,
           areas: areas || false, 
           style: directoryStyle || '../../main-knowledge/css/main-knowledge.css',
@@ -104,6 +100,7 @@
               try {
                 const msgSuccess = 'Você está na página: ' + pageName
                 res.render(directoryRender, {
+                  name: pageName,
                   title: `${pageName} - Page`,
                   style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
                   showNavbar: optionNav || true,
@@ -139,6 +136,7 @@
                 'user/pages/sub-pages/humans/sociology',
                 'Sociologia'
               )
+              
           // Linguagens
             // Artes
             renderSubPages(
@@ -167,6 +165,7 @@
               'user/pages/sub-pages/languages/portuguese',
               'Português'
             );
+
         // Natureza
           // Biologia
           renderSubPages(
@@ -188,5 +187,109 @@
           'user/pages/sub-pages/nature/physical',
           'Física'
           );
-            
+  
+  // Formulários
+  function renderForms(url, directoryRender, formsPage, directoryStyle, optionNav) {
+    const postUrl = '/user' + url + '/add';
+
+    // Rota GET
+    router.get(url, (req, res) => {
+        try {
+            const msgSuccess = 'Você está no formulário: ' + formsPage;
+            const lowerCaseFormsPage = formsPage.toLowerCase();
+            res.render(directoryRender, {
+                urlPost: postUrl,
+                name: formsPage,
+                title: `Formulário de ${lowerCaseFormsPage} - Page`,
+                style: directoryStyle || '../../main-forms/main-forms.css',
+                showNavbar: optionNav || true,
+                success_msg: msgSuccess
+            });
+        } catch (err) {
+            console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
+            res.status(500).send('Erro interno do servidor');
+        }
+    });
+
+    // Rota POST
+    router.post(postUrl, (req, res) => {
+        res.send('oi');
+    });
+}
+    // Humanas 
+      // Geografia
+      renderForms(
+        '/forms/humans/geography',
+        'user/forms/humans/form-geography',
+        'Geografia'
+        );
+      // História
+      renderForms(
+        '/forms/humans/history',
+        'user/forms/humans/form-history',
+        'História'
+        );
+      // Filosofia
+      renderForms(
+        '/forms/humans/philosophy',
+        'user/forms/humans/form-philosophy',
+        'Filosofia'
+        );
+      // Sociologia
+      renderForms(
+        '/forms/humans/sociology',
+        'user/forms/humans/form-sociology',
+        'Sociologia'
+        );
+    // Linguagens 
+      // Artes
+      renderForms(
+        '/forms/language/art',
+        'user/forms/languages/form-art',
+        'Artes'
+        );
+      // Redação
+      renderForms(
+        '/forms/language/essay',
+        'user/forms/languages/form-essay',
+        'História'
+        );
+      // Literatura
+      renderForms(
+        '/forms/language/literature',
+        'user/forms/language/form-literature',
+        'Literatura'
+        );
+      // Português
+      renderForms(
+        '/forms/language/portuguese',
+        'user/forms/languages/form-portuguese',
+        'Português'
+        );
+    // Natureza 
+      // Química 
+      renderForms(
+        '/forms/nature/chemical',
+        'user/forms/nature/form-chemical',
+        'Química'
+        );
+      // Física
+      renderForms(
+        '/forms/nature/physical',
+        'user/forms/nature/form-physical',
+        'Física'
+        );
+      // Biologia
+      renderForms(
+        '/forms/nature/biology',
+        'user/forms/nature/form-biology',
+        'Biologia'
+        );
+    // Matemática
+    renderForms(
+      '/forms/math',
+      'user/forms/form-math',
+      'Matemática'
+    )
+
 module.exports = router

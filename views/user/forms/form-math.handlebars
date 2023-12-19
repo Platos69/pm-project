@@ -1,5 +1,5 @@
-<h2>Formulário</h2>
-<form>
+<h2>Adicionar assunto de <strong>{{name}}</strong></h2>
+<form action="{{urlPost}}" method="POST">
     <div class="card">
         <div class="card-body">
             <div class="form-group">
@@ -7,6 +7,7 @@
                 <input type="text" class="form-control" id="subjectTitle" placeholder="Título do assunto">
                 <label for="subjectDescription">Descrição do assunto: </label>
                 <textarea class="form-control" id="subjectDescription" rows="3" placeholder="Descrição do assunto"></textarea>
+                <button class="btn btn-success">Enviar formulário</button>
             </div>
         </div>
     </div>
