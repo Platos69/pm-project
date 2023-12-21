@@ -12,6 +12,7 @@
     const flash = require('connect-flash')
     // Definição de rotas
     const user = require('./routes/user.js')  
+    const manager = require('./routes/manager.js')  
 
 // CONFIGURAÇÕES
     // Sessão
@@ -80,6 +81,7 @@
     });
     // User
     app.use('/user', user)
+    app.use('/manager', manager)
 
 // OUTROS
 const PORT = 8081
