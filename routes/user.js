@@ -192,10 +192,11 @@
   function renderForms(url, directoryRender, formsPage, postUrl, directoryStyle, optionNav) {
     router.get(url, (req, res) => {
         try {
+            let urlCorrection = '/user' + postUrl
             const msgSuccess = 'Você está no formulário: ' + formsPage;
             const lowerCaseFormsPage = formsPage.toLowerCase();
             res.render(directoryRender, {
-                urlPost: postUrl,
+                urlPost: urlCorrection,
                 name: formsPage,
                 title: `Formulário de ${lowerCaseFormsPage} - Page`,
                 style: directoryStyle || '../../main-forms/main-forms.css',
@@ -214,28 +215,28 @@
         '/forms/humans/geography',
         'user/forms/humans/form-geography',
         'Geografia',
-        '/user/forms/humans/geography/add'
+        '/forms/humans/geography/add'
         );
       // História
       renderForms(
         '/forms/humans/history',
         'user/forms/humans/form-history',
         'História',
-        '/user/forms/humans/history/add'
+        '/forms/humans/history/add'
         );
       // Filosofia
       renderForms(
         '/forms/humans/philosophy',
         'user/forms/humans/form-philosophy',
         'Filosofia',
-        '/user/forms/humans/philosophy/add'
+        '/forms/humans/philosophy/add'
         );
       // Sociologia
       renderForms(
         '/forms/humans/sociology',
         'user/forms/humans/form-sociology',
         'Sociologia',
-        '/user/forms/humans/sociology/add'
+        '/forms/humans/sociology/add'
         );
     // Linguagens 
       // Artes
@@ -243,28 +244,28 @@
         '/forms/language/art',
         'user/forms/languages/form-art',
         'Artes',
-        '/user/forms/languages/arts/add'
+        '/forms/languages/arts/add'
         );
       // Redação
       renderForms(
         '/forms/language/essay',
         'user/forms/languages/form-essay',
         'História',
-        '/user/forms/languages/essay/add'
+        '/forms/languages/essay/add'
         );
       // Literatura
       renderForms(
         '/forms/language/literature',
         'user/forms/language/form-literature',
         'Literatura',
-        '/user/forms/languages/literature/add'
+        '/forms/languages/literature/add'
         );
       // Português
       renderForms(
         '/forms/language/portuguese',
         'user/forms/languages/form-portuguese',
         'Português',
-        '/user/forms/languages/portuguese/add'
+        '/forms/languages/portuguese/add'
         );
     // Natureza 
       // Química 
@@ -272,28 +273,28 @@
         '/forms/nature/chemical',
         'user/forms/nature/form-chemical',
         'Química',
-        '/user/forms/nature/chemical/add'
+        '/forms/nature/chemical/add'
         );
       // Física
       renderForms(
         '/forms/nature/physical',
         'user/forms/nature/form-physical',
         'Física',
-        '/user/forms/nature/physical/add'
+        '/forms/nature/physical/add'
         );
       // Biologia
       renderForms(
         '/forms/nature/biology',
         'user/forms/nature/form-biology',
         'Biologia',
-        '/user/forms/nature/biology/add'
+        '/forms/nature/biology/add'
         );
     // Matemática
     renderForms(
       '/forms/math',
       'user/forms/form-math',
       'Matemática',
-      '/user/forms/math/add' 
+      '/forms/math/add' 
     )
 
 // ROTAS POST
@@ -305,56 +306,56 @@ function renderPostForms (url, ...functions) {
   // Humanas 
     // Geografia
     renderPostForms(
-      '/user/forms/humans/geography/add'
+      '/forms/humans/geography/add'
     );
     // História
     renderPostForms(
-      '/user/forms/humans/history/add'
+      '/forms/humans/history/add'
     );
     // Filosofia
     renderPostForms(
-      '/user/forms/humans/philosophy/add'
+      '/forms/humans/philosophy/add'
     );
     // Sociologia
     renderPostForms(
-      '/user/forms/humans/sociology/add'
+      '/forms/humans/sociology/add'
     );
 
   // Linguagens 
     // Artes
     renderPostForms(
-      '/user/forms/languages/art/add'
+      '/forms/languages/art/add'
     );
     // Redação
     renderPostForms(
-      '/user/forms/languages/essay/add'
+      '/forms/languages/essay/add'
     );
     // Literatura
     renderPostForms(
-      '/user/forms/language/literature/add'
+      '/forms/language/literature/add'
     );
     // Português
     renderPostForms(
-      '/user/forms/languages/portuguese/add'
+      '/forms/languages/portuguese/add'
     );
 
   // Natureza 
     // Química 
     renderPostForms(
-      '/user/forms/nature/chemical/add'
+      '/forms/nature/chemical/add'
     );
     // Física
     renderPostForms(
-      '/user/forms/nature/physical/add'
+      '/forms/nature/physical/add'
     );
     // Biologia
     renderPostForms(
-      '/user/forms/nature/biology/add'
+      '/forms/nature/biology/add'
     );
     
   // Matemática
   renderPostForms(
-    '/user/forms/math/add'
+    '/forms/math/add'
   );     
 
 module.exports = router
