@@ -3,13 +3,27 @@
 const mongoose = require('mongoose');
 
 const geographySchema = new mongoose.Schema({
-  titleContent: String,
-  descriptionContent: String,
-  documentationsContent: String,
+  titleContent: {
+    type: String
+  },
+  descriptionContent: {
+    type: String
+  },
+  documentationsContent: {
+    type: String
+  },
   topics: [{
-    titleTopic: String,
-    subjectTopic: String,
+    titleTopic: {
+      type: String
+    },
+    subjectTopic: {
+      type: String
+    } 
   }],
+  data: {
+    type: Date,
+    default: Date.now(),
+  }
 });
 
 const Geography = mongoose.model('Geography', geographySchema);

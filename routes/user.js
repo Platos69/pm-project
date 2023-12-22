@@ -2,11 +2,19 @@
     // Módulos principais
     const express = require('express')
     const user = express.Router()
-    const handlebars = require('express-handlebars')
+    const mongoose = require('mongoose')
+    const handlebars = require('express-handlebars')  
     // Exportando modelos
-    const Geography = require('../models/knowledge-areas/humans/Geography.js');
+    require('../models/knowledge-areas/humans/Geography.js');
+    const geography = mongoose.model('Geography');
+
 
 // CONFIGURAÇÕES
+  // Carregando modulos
+  const models = {
+    Geography: require('../models/knowledge-areas/humans/Geography'),
+  };
+
   // Automatizando link automatico
     // Areas  
     const knowledgeAreas = [
@@ -97,16 +105,22 @@
           'Matemática e suas tecnologias',
         );
           // Sub-pages
-          function renderSubPages(url, directoryRender, pageName, directoryStyle, optionNav) {
-            user.get(url, (req, res) => {
+          function renderSubPages(url, directoryRender, pageName, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
+            user.get(url, async (req, res) => {
               try {
-                const msgSuccess = 'Você está na página: ' + pageName
+                const msgSuccess = 'Você está na página: ' + pageName;
+          
+                // Corrigindo o uso da função find
+                const content = await models[findVariableForDB].find().sort({ data: 'desc' });
+          
                 res.render(directoryRender, {
                   name: pageName,
                   title: `${pageName} - Page`,
+                  content,
                   style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
                   showNavbar: optionNav || true,
-                  success_msg: msgSuccess});
+                  success_msg: msgSuccess,
+                });
               } catch (err) {
                 console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
                 res.status(500).send('Erro interno do servidor');
@@ -124,7 +138,9 @@
               renderSubPages(
                 '/knowledge-areas/humans/geography',
                 'user/pages/sub-pages/humans/geography',
-                'Geografia'
+                'Geografia',
+                'geography',
+                'Geography'
               )
               // Filosofia
               renderSubPages(
