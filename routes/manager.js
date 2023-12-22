@@ -3,21 +3,20 @@
     const express = require('express')
     const manager = express.Router()
     const handlebars = require('express-handlebars');
-    const Geography = require('../models/knowledge-areas/humans/Geography');
 
 // CONFIGURAÇÕES
 const models = {
-    Geography: Geography,
+    Geography: require('../models/knowledge-areas/humans/Geography'),
 };
 
 // ROTAS
     // Formulários
-    function renderForms(url, directoryRender, formsPage, directoryStyle, optionNav) {
+    function renderForms(url, directoryRender, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
         manager.route(url)
             .get(async (req, res) => {
                 try {
                     const lowerCaseFormsPage = formsPage.toLowerCase();
-                    const assuntos = await Geography.find();
+                    const findVariableByName = await models[findVariableForDB].find();
                     res.render(directoryRender, {
                         urlPost: '/manager' + url,
                         name: formsPage,
@@ -25,7 +24,7 @@ const models = {
                         style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
                         showNavbar: optionNav || true,
                         success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
-                        assuntos
+                        findVariableByName
                     });
                 } catch (err) {
                     console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
@@ -35,13 +34,13 @@ const models = {
             .post(async (req, res) => {
                 try {
                     const { titleContent, descriptionContent, documentationsContent, topic } = req.body;
-                    const geography = new Geography({
+                    const newEntity = new models[findVariableForDB]({
                         titleContent,
                         descriptionContent,
                         documentationsContent,
                         topics: topic
                     });
-                    await geography.save();
+                    await newEntity.save();
                     res.redirect('/');
                 } catch (err) {
                     console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
