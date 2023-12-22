@@ -12,42 +12,46 @@ const models = {
 
 // ROTAS
     // Formulários
-    function renderForms(url, directoryRender, formsPage, directoryStyle, optionNav) {
+    function renderForms(url, directoryRender, formsPage, variableName, dbName, directoryStyle, optionNav) {
         manager.route(url)
-            .get(async (req, res) => {
-                try {
-                    const lowerCaseFormsPage = formsPage.toLowerCase();
-                    const assuntos = await Geography.find();
-                    res.render(directoryRender, {
-                        urlPost: '/manager' + url,
-                        name: formsPage,
-                        title: `Formulário de ${lowerCaseFormsPage} - Page`,
-                        style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
-                        showNavbar: optionNav || true,
-                        success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
-                        assuntos
-                    });
-                } catch (err) {
-                    console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
-                    res.status(500).send('Erro interno do servidor');
+        .get(async (req, res) => {
+            try {
+                const lowerCaseFormsPage = formsPage.toLowerCase();
+                // Verificação para o formulário
+                if (formsPage == 'Geografia') {
+                    const variableName = await Geography.find()
                 }
-            })
-            .post(async (req, res) => {
-                try {
-                    const { titleContent, descriptionContent, documentationsContent, topic } = req.body;
-                    const geography = new Geography({
-                        titleContent,
-                        descriptionContent,
-                        documentationsContent,
-                        topics: topic
-                    });
-                    await geography.save();
-                    res.redirect('/');
-                } catch (err) {
-                    console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
-                    res.status(500).send('Erro interno do servidor');
-                }
-            });
+                res.render(directoryRender, {
+                    urlPost: '/manager' + url,
+                    name: formsPage,
+                    title: `Formulário de ${lowerCaseFormsPage} - Page`,
+                    style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
+                    showNavbar: optionNav || true,
+                    success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
+                    variableName
+                });
+            } catch (err) {
+                console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
+                res.status(500).send('Erro interno do servidor');
+            }
+        })
+        .post(async (req, res) => {
+            try {
+                const { titleContent, descriptionContent, documentationsContent, topics } = req.body;
+                const newEntity = new Geography ({
+                    titleContent,
+                    descriptionContent,
+                    documentationsContent,
+                    topics,
+                });
+
+                await newEntity.save();
+                res.redirect('/')
+            } catch (err) {
+                console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
+                res.status(500).send('Erro interno do servidor');
+            }
+        });
     }
     // Humanas 
         // Geografia

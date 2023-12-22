@@ -2,8 +2,8 @@
     // Modulos principais
     const express = require('express')
     const handlebars = require('express-handlebars')
-    const app = express()
     const { engine } = require('express-handlebars')
+    const app = express()
     const path = require("path")
     const bodyParser = require('body-parser')
     const mongoose = require('mongoose')
@@ -39,7 +39,7 @@
     ),
     app.set('view engine', 'handlebars')
          // Mongoose
-         const uri = 'mongodb://localhost:27017'
+         const uri = 'mongodb://localhost:27017/PmProject'
         // const uri = 'mongodb+srv://Pm_Project:Dan%402905@pmproject.niy0xfw.mongodb.net/?retryWrites=true&w=majority'
             async function connect() {
                 try {

@@ -1,0 +1,62 @@
+<h2>Adicionar conteúdo da materia: <strong>{{name}}</strong></h2>
+
+    <form action="{{urlPost}}" method="POST">
+        <label for="titleContent">Título do conteúdo:</label>
+        <input type="text" id="titleContent" name="titleContent" required>
+
+        <label for="descriptionContent">Descrição do conteúdo:</label>
+        <input type="text" id="descriptionContent" name="descriptionContent" required>
+
+        <label for="documentationsContent">Documentações:</label>
+        <input type="text" id="documentationsContent" name="documentationsContent" required>
+
+        <div id="topicContainer">
+            <div class="topic">
+                <label for="titleTopic">Título do Tópico:</label>
+                <input type="text" name="topic[0][titleTopic]" required>
+
+                <label for="subjectTopic">Detalhamento do Tópico:</label>
+                <input type="text" name="topic[0][subjectTopic]" required>
+            </div>
+        </div>
+
+        <button type="button" onclick="adicionarTopico()">+</button>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    {{#each geography}}
+    <div>
+        <h2>{{titleContent}}</h2>
+        <p>{{descriptionContent}}</p>
+        <p>{{documentationsContent}}</p>
+        <ul>
+            {{#each topic}}
+            <li>
+                <strong>{{titleTopic}}</strong>: {{subjectTopic}}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/each}}
+
+    <script>
+        let topicCount = 1;
+
+        function adicionarTopico() {
+            const container = document.getElementById('topicContainer');
+            const newTopic = document.createElement('div');
+            newTopic.className = 'topic';
+
+            newTopic.innerHTML = `
+                <label for="titleTopic">Título do Tópico:</label>
+                <input type="text" name="topic[${topicCount}][titleTopic]" required>
+
+                <label for="subjectTopic">Detalhamento do Tópico:</label>
+                <input type="text" name="topic[${topicCount}][subjectTopic]" required>
+            `;
+
+            container.appendChild(newTopic);
+            topicCount++;
+        }
+    </script>

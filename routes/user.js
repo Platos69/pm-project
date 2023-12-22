@@ -3,6 +3,8 @@
     const express = require('express')
     const user = express.Router()
     const handlebars = require('express-handlebars')
+    // Exportando modelos
+    const Geography = require('../models/knowledge-areas/humans/Geography.js');
 
 // CONFIGURAÇÕES
   // Automatizando link automatico
