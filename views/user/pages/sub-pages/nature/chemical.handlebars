@@ -1,1 +1,15 @@
 <h2>{{name}}</h2>
+
+{{#if content.length}}
+    {{#each content}}
+        <div class='card mt-4'>
+            <div class='card-body'>
+                <h4>Nome da categoria: {{titleContent}}</h4>
+                <small>Tipo da categoria: {{descriptionContent}}</small><br>
+                <small>Data de criação: {{data}}</small><br>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <h6 class='mt-2'>Não há conteúdos registrados</h6>
+{{/if}}

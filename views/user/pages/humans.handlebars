@@ -1,11 +1,19 @@
 <div class="areas-knowledge">
     <h2>{{name}}</h2>
-
+    
     <ul>
         {{#each areas}}
+            {{#if this}}
             <a href="{{url}}">
-                <li>{{name}}</li>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p>{{name}}</p>        
+                    </div>
+                </div>
             </a>
+            {{else}}
+                <h3>Nenhuma área do conhecimento registrada!</h3>
+            {{/if}}
         {{/each}}
     </ul>
 </div>

@@ -1,62 +1,80 @@
 <h2>Adicionar conteúdo da materia: <strong>{{name}}</strong></h2>
 
-    <form action="{{urlPost}}" method="POST">
-        <label for="titleContent">Título do conteúdo:</label>
-        <input type="text" id="titleContent" name="titleContent" required>
+<form class="mt-4" action="{{urlPost}}" method="POST">
+    <div class="card">
+        <div class="card-body">
+            <label for="titleContent">Título do conteúdo:</label>
+            <input class="form-control" type="text" id="titleContent" name="titleContent" placeholder="Título do assunto" required>
 
-        <label for="descriptionContent">Descrição do conteúdo:</label>
-        <input type="text" id="descriptionContent" name="descriptionContent" required>
+            <label class="mt-1" for="descriptionContent">Descrição do conteúdo:</label>
+            <textarea class="form-control" type="text" id="descriptionContent" name="descriptionContent" placeholder="Descrição do assunto" required></textarea>
 
-        <label for="documentationsContent">Documentações:</label>
-        <input type="text" id="documentationsContent" name="documentationsContent" required>
+            <label class="mt-1" for="documentationsContent">Documentações:</label>
+            <textarea class="form-control" type="text" id="documentationsContent" name="documentationsContent" rows="3" placeholder="Documentações do assunto: YouTube Video, Canvas, Google Drive, etc" required></textarea>
 
-        <div id="topicContainer">
-            <div class="topic">
-                <label for="titleTopic">Título do Tópico:</label>
-                <input type="text" name="topic[0][titleTopic]" required>
+            <div id="topicContainer">
+                <div class="mt-3 card">
+                    <div class="card-body">
+                        <p><strong>Tópico 1</strong></p>
+                        <div class="topic">
+                            <label class="mt-1" for="titleTopic">Título do tópico:</label>
+                            <input class="form-control" type="text" name="topic[0][titleTopic]" placeholder="Título do tópico" required>
 
-                <label for="subjectTopic">Detalhamento do Tópico:</label>
-                <input type="text" name="topic[0][subjectTopic]" required>
+                            <label class="mt-1" for="subjectTopic">Conteúdo do tópico:</label>
+                            <textarea class="form-control" type="text" name="topic[0][subjectTopic]" rows="4" placeholder="Conteúdo do tópico" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-outline-success" type="button" onclick="adicionarTopico()">+</button>
+
+                <button class="btn btn-success" type="submit">Finalizar</button>
             </div>
         </div>
-
-        <button type="button" onclick="adicionarTopico()">+</button>
-
-        <button type="submit">Salvar</button>
-    </form>
-
-    {{#each geography}}
-    <div>
-        <h2>{{titleContent}}</h2>
-        <p>{{descriptionContent}}</p>
-        <p>{{documentationsContent}}</p>
-        <ul>
-            {{#each topic}}
-            <li>
-                <strong>{{titleTopic}}</strong>: {{subjectTopic}}
-            </li>
-            {{/each}}
-        </ul>
     </div>
-    {{/each}}
+</form>
 
-    <script>
-        let topicCount = 1;
+{{#each geography}}
+<div>
+    <h2>{{titleContent}}</h2>
+    <p>{{descriptionContent}}</p>
+    <p>{{documentationsContent}}</p>
+    <ul>
+        {{#each topic}}
+        <li>
+            <strong>{{titleTopic}}</strong>: {{subjectTopic}}
+        </li>
+        {{/each}}
+    </ul>
+</div>
+{{/each}}
 
-        function adicionarTopico() {
-            const container = document.getElementById('topicContainer');
-            const newTopic = document.createElement('div');
-            newTopic.className = 'topic';
+<script>
+    let topicCount = 1;
 
-            newTopic.innerHTML = `
-                <label for="titleTopic">Título do Tópico:</label>
-                <input type="text" name="topic[${topicCount}][titleTopic]" required>
+    function adicionarTopico() {
+        const container = document.getElementById('topicContainer');
+        const divCard = document.createElement('div');
+        divCard.className = 'mt-3 card';
+        const divCardBody = document.createElement('div');
+        divCardBody.className = 'card-body'
+        const pTopicCount = document.createElement('p')
+        pTopicCount.innerHTML = `<strong>Tópico ${topicCount + 1}</strong>`;
+        const divSingleTopic = document.createElement('topic')
 
-                <label for="subjectTopic">Detalhamento do Tópico:</label>
-                <input type="text" name="topic[${topicCount}][subjectTopic]" required>
+        divSingleTopic.innerHTML = `
+                <label class="mt-1" for="titleTopic">Título do tópico:</label>
+                <input class="form-control" type="text" name="topic[${topicCount}][titleTopic]" placeholder="Título do tópico" required>
+
+                <label class="mt-1" for="subjectTopic">Conteúdo do tópico:</label>
+                <textarea class="form-control" type="text" name="topic[${topicCount}][subjectTopic]" rows="4" placeholder="Conteúdo do tópico" required></textarea>
             `;
 
-            container.appendChild(newTopic);
-            topicCount++;
-        }
-    </script>
+        divCardBody.appendChild(pTopicCount)     
+        divCardBody.appendChild(divSingleTopic)
+        divCard.appendChild(divCardBody)
+        container.appendChild(divCard);
+        topicCount++;
+    }
+</script>

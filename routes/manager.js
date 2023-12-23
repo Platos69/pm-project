@@ -6,7 +6,22 @@
 
 // CONFIGURAÇÕES
 const models = {
+    // Humans
     Geography: require('../models/knowledge-areas/humans/Geography'),
+    History: require('../models/knowledge-areas/humans/History'),
+    Philosophy: require('../models/knowledge-areas/humans/Philosophy'),
+    Sociology: require('../models/knowledge-areas/humans/Sociology'),
+    // Languages
+    Art: require('../models/knowledge-areas/languages/Art'),
+    Essay: require('../models/knowledge-areas/languages/Essay'),
+    Literature: require('../models/knowledge-areas/languages/Literature'),
+    Portuguese: require('../models/knowledge-areas/languages/Portuguese'),
+    // Nature
+    Biology: require('../models/knowledge-areas/nature/Biology'),
+    Chemical: require('../models/knowledge-areas/nature/Chemical'),
+    Physical: require('../models/knowledge-areas/nature/Physical'),
+    // Math
+    Math: require('../models/knowledge-areas/Math')
 };
 
 // ROTAS
@@ -61,69 +76,91 @@ const models = {
         renderForms(
             '/forms/humans/history',
             'manager/pages/forms/humans/form-history',
-            'História'
+            'História',
+            'history',
+            'History'
             );
         // Filosofia
         renderForms(
             '/forms/humans/philosophy',
             'manager/pages/forms/humans/form-philosophy',
-            'Filosofia'
+            'Filosofia',
+            'philosophy',
+            'Philosophy'
             );
         // Sociologia
         renderForms(
             '/forms/humans/sociology',
             'manager/pages/forms/humans/form-sociology',
-            'Sociologia'
+            'Sociologia',
+            'sociology',
+            'Sociology',
             );
     // Linguagens 
         // Artes
         renderForms(
             '/forms/language/art',
             'manager/pages/forms/languages/form-art',
-            'Artes'
+            'Artes',
+            'art',
+            'Art'
             );
         // Redação
         renderForms(
             '/forms/language/essay',
             'manager/pages/forms/languages/form-essay',
-            'História'
+            'Redação',
+            'essay',
+            'Essay'
             );
         // Literatura
         renderForms(
             '/forms/language/literature',
             'manager/pages/forms/language/form-literature',
-            'Literatura'
+            'Literatura',
+            'literature',
+            'Literature'
             );
         // Português
         renderForms(
             '/forms/language/portuguese',
             'manager/pages/forms/languages/form-portuguese',
-            'Português'
+            'Português',
+            'portuguese',
+            'Portuguese'
             );
     // Natureza 
         // Química 
         renderForms(
             '/forms/nature/chemical',
             'manager/pages/forms/nature/form-chemical',
-            'Química'
+            'Química',
+            'chemical',
+            'Chemical'
             );
         // Física
         renderForms(
             '/forms/nature/physical',
             'manager/forms/nature/form-physical',
-            'Física'
+            'Física',
+            'physical',
+            'Physical'
             );
         // Biologia
         renderForms(
             '/forms/nature/biology',
             'manager/pages/forms/nature/form-biology',
-            'Biologia'
+            'Biologia',
+            'biology',
+            'Biology'
             );
-        // Matemática
-        renderForms(
+    // Matemática
+    renderForms(
         '/forms/math',
         'manager/pages/forms/form-math',
-        'Matemática' 
-        )
+        'Matemática',
+        'math',
+        'Math'
+    )
 
 module.exports = manager
