@@ -3,28 +3,41 @@
     const express = require('express')
     const manager = express.Router()
     const handlebars = require('express-handlebars');
+    // Exportando models
+    const models = require('../configs/ModelsVariables.js');
 
 // CONFIGURAÇÕES
-const models = {
-    // Humans
-    Geography: require('../models/knowledge-areas/humans/Geography'),
-    History: require('../models/knowledge-areas/humans/History'),
-    Philosophy: require('../models/knowledge-areas/humans/Philosophy'),
-    Sociology: require('../models/knowledge-areas/humans/Sociology'),
-    // Languages
-    Art: require('../models/knowledge-areas/languages/Art'),
-    Essay: require('../models/knowledge-areas/languages/Essay'),
-    Literature: require('../models/knowledge-areas/languages/Literature'),
-    Portuguese: require('../models/knowledge-areas/languages/Portuguese'),
-    // Nature
-    Biology: require('../models/knowledge-areas/nature/Biology'),
-    Chemical: require('../models/knowledge-areas/nature/Chemical'),
-    Physical: require('../models/knowledge-areas/nature/Physical'),
-    // Math
-    Math: require('../models/knowledge-areas/Math')
-};
+  // Automatizando link automatico
+  const formsAreas = require('../configs/manager/FormsAreasVariables.js')
 
 // ROTAS
+    // Área de formulários
+    function renderMainForm(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
+    manager.get(url, (req, res) => {
+        try {
+            const msgSuccess = 'Você está na página: ' + pageName
+            res.render(directoryRender, {
+            name: pageName,
+            title: `${pageName} - Page`,
+            areas: areas || false, 
+            style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
+            showNavbar: optionNav || true,
+            success_msg: msgSuccess });
+        } catch (err) {
+            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
+            res.status(500).send('Erro interno do servidor');
+        }
+        });
+    }
+        // Main
+        renderMainForm(
+            '/forms-main',
+            'manager/areas',
+            'Página principal',
+            formsAreas.main
+        );
+            // ADICIONAR O BGL DE AREA FORM
+
     // Formulários
     function renderForms(url, directoryRender, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
         manager.route(url)
@@ -66,7 +79,7 @@ const models = {
     // Humanas 
         // Geografia
         renderForms(
-            '/forms/humans/geography',
+            '/forms-main/forms-area/humans/geography',
             'manager/pages/forms/humans/form-geography',
             'Geografia',
             'geography',
@@ -74,7 +87,7 @@ const models = {
             );
         // História
         renderForms(
-            '/forms/humans/history',
+            '/forms-main/forms-area/humans/history',
             'manager/pages/forms/humans/form-history',
             'História',
             'history',
@@ -82,7 +95,7 @@ const models = {
             );
         // Filosofia
         renderForms(
-            '/forms/humans/philosophy',
+            '/forms-main/forms-area/humans/philosophy',
             'manager/pages/forms/humans/form-philosophy',
             'Filosofia',
             'philosophy',
@@ -90,7 +103,7 @@ const models = {
             );
         // Sociologia
         renderForms(
-            '/forms/humans/sociology',
+            '/forms-main/forms-area/humans/sociology',
             'manager/pages/forms/humans/form-sociology',
             'Sociologia',
             'sociology',
@@ -99,7 +112,7 @@ const models = {
     // Linguagens 
         // Artes
         renderForms(
-            '/forms/language/art',
+            '/forms-main/forms-area/language/art',
             'manager/pages/forms/languages/form-art',
             'Artes',
             'art',
@@ -107,7 +120,7 @@ const models = {
             );
         // Redação
         renderForms(
-            '/forms/language/essay',
+            '/forms-main/forms-area/language/essay',
             'manager/pages/forms/languages/form-essay',
             'Redação',
             'essay',
@@ -115,7 +128,7 @@ const models = {
             );
         // Literatura
         renderForms(
-            '/forms/language/literature',
+            '/forms-main/forms-area/language/literature',
             'manager/pages/forms/language/form-literature',
             'Literatura',
             'literature',
@@ -123,7 +136,7 @@ const models = {
             );
         // Português
         renderForms(
-            '/forms/language/portuguese',
+            '/forms-main/forms-area/language/portuguese',
             'manager/pages/forms/languages/form-portuguese',
             'Português',
             'portuguese',
@@ -132,7 +145,7 @@ const models = {
     // Natureza 
         // Química 
         renderForms(
-            '/forms/nature/chemical',
+            '/forms-main/forms-area/nature/chemical',
             'manager/pages/forms/nature/form-chemical',
             'Química',
             'chemical',
@@ -140,7 +153,7 @@ const models = {
             );
         // Física
         renderForms(
-            '/forms/nature/physical',
+            '/forms-main/forms-area/nature/physical',
             'manager/forms/nature/form-physical',
             'Física',
             'physical',
@@ -148,7 +161,7 @@ const models = {
             );
         // Biologia
         renderForms(
-            '/forms/nature/biology',
+            '/forms-main/forms-area/nature/biology',
             'manager/pages/forms/nature/form-biology',
             'Biologia',
             'biology',
@@ -156,7 +169,7 @@ const models = {
             );
     // Matemática
     renderForms(
-        '/forms/math',
+        '/forms-main/forms-area/math',
         'manager/pages/forms/form-math',
         'Matemática',
         'math',

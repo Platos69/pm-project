@@ -4,97 +4,12 @@
     const user = express.Router()
     const mongoose = require('mongoose')
     const handlebars = require('express-handlebars')  
-    // Exportando modelos
-      // Humanas
-        // História
-        require('../models/knowledge-areas/humans/History.js');
-        const history = mongoose.model('History');
-        // Geografia
-        require('../models/knowledge-areas/humans/Geography.js');
-        const geography = mongoose.model('Geography');
-        // Filosofia
-        require('../models/knowledge-areas/humans/Philosophy.js');
-        const philosophy = mongoose.model('Philosophy');
-        // Sociologia
-        require('../models/knowledge-areas/humans/Sociology.js');
-        const sociology = mongoose.model('Sociology');
-      // Linguagens
-        // Artes
-        require('../models/knowledge-areas/languages/Art.js');
-        const art = mongoose.model('Art');
-        // Redação
-        require('../models/knowledge-areas/languages/Essay.js');
-        const essay = mongoose.model('Essay');
-        // Literature
-        require('../models/knowledge-areas/languages/Literature.js');
-        const literature = mongoose.model('Literature');
-        // Português
-        require('../models/knowledge-areas/languages/Portuguese.js');
-        const portuguese = mongoose.model('Portuguese');
-      // Natureza
-        // Biologia
-        require('../models/knowledge-areas/nature/Biology.js');
-        const biology = mongoose.model('Biology');
-        // Química
-        require('../models/knowledge-areas/nature/Chemical.js');
-        const chemical = mongoose.model('Chemical');
-        // Física
-        require('../models/knowledge-areas/nature/Physical.js');
-        const physical = mongoose.model('Physical');  
-      // Matemática
-        require('../models/knowledge-areas/Math.js')
-        const math = mongoose.model('Math');
+    // Exportando módulos
+    const models = require('../configs/ModelsVariables.js');
 
 // CONFIGURAÇÕES
-  // Carregando modulos
-  const models = {
-    // Humans
-    Geography: require('../models/knowledge-areas/humans/Geography'),
-    History: require('../models/knowledge-areas/humans/History'),
-    Philosophy: require('../models/knowledge-areas/humans/Philosophy'),
-    Sociology: require('../models/knowledge-areas/humans/Sociology'),
-    // Languages
-    Art: require('../models/knowledge-areas/languages/Art'),
-    Essay: require('../models/knowledge-areas/languages/Essay'),
-    Literature: require('../models/knowledge-areas/languages/Literature'),
-    Portuguese: require('../models/knowledge-areas/languages/Portuguese'),
-    // Nature
-    Biology: require('../models/knowledge-areas/nature/Biology'),
-    Chemical: require('../models/knowledge-areas/nature/Chemical'),
-    Physical: require('../models/knowledge-areas/nature/Physical'),
-    // Math
-    Math: require('../models/knowledge-areas/Math')
-};
   // Automatizando link automatico
-    // Areas  
-    const knowledgeAreas = [
-      { name: 'Matemática e suas tecnologias', url: '/user/knowledge-areas/math' },
-      { name: 'Ciências humanas e sociais aplicadas', url: '/user/knowledge-areas/humans' },
-      { name: 'Ciências da natureza e suas tecnologias', url: '/user/knowledge-areas/nature' },
-      { name: 'Linguagens e suas tecnologias', url: '/user/knowledge-areas/languages' }
-    ];
-
-    // Sub-areas
-      // Humans
-      const knowledgeHumans = [
-        { name: 'Geografia', url: '/user/knowledge-areas/humans/geography' },
-        { name: 'História', url: '/user/knowledge-areas/humans/history' },
-        { name: 'Filosofia', url: '/user/knowledge-areas/humans/philosophy' },
-        { name: 'Sociologia', url: '/user/knowledge-areas/humans/sociology' }
-      ]
-      // Languages
-      const knowledgeLanguages = [
-        { name: 'Artes', url: '/user/knowledge-areas/languages/art' },
-        { name: 'Redação', url: '/user/knowledge-areas/languages/essay' },
-        { name: 'Literatura', url: '/user/knowledge-areas/languages/literature' },
-        { name: 'Português', url: '/user/knowledge-areas/languages/portuguese' }
-      ]
-      // Nature
-      const knowledgeNature = [
-        { name: 'Biologia', url: '/user/knowledge-areas/nature/biology'},
-        { name: 'Química', url: '/user/knowledge-areas/nature/chemical'},
-        { name: 'Física', url: '/user/knowledge-areas/nature/physical'}
-      ]
+  const knowledgeAreas = require('../configs/user/KnowledgeAreasVariables.js');
 
 // ROTAS
   // Páginas das áreas do conhecimento
@@ -120,7 +35,7 @@
       '/knowledge-areas',
       'user/areas',
       'Áreas do conhecimento',
-      knowledgeAreas,
+      knowledgeAreas.main,
       '../main-knowledge/css/main-knowledge.css'
   );
       // Pages
@@ -129,7 +44,7 @@
           '/knowledge-areas/humans',
           'user/pages/humans',
           'Ciências humanas e sociais aplicadas',
-          knowledgeHumans
+          knowledgeAreas.humans
         );
 
         // Linguagens
@@ -137,7 +52,7 @@
           '/knowledge-areas/languages',
           'user/pages/languages',
           'Linguagens e suas tecnologias',
-          knowledgeLanguages
+          knowledgeAreas.languages
         );
 
         // Natureza
@@ -145,7 +60,7 @@
           '/knowledge-areas/nature',
           'user/pages/nature',
           'Ciências da natureza e suas tecnologias',
-          knowledgeNature
+          knowledgeAreas.nature
         );
           // Sub-pages
           function renderSubPages(url, directoryRender, pageName, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
