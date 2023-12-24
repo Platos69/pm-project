@@ -1,0 +1,16 @@
+p {
+    font-size: 20px;
+}
+
+.areas-forms a {
+    color: #000000a9;
+    text-decoration: none;
+}
+
+.areas-forms a:hover {
+    color: #000000d0;
+}
+
+.areas-forms .card:hover {
+    background-color: #0000000a;
+}

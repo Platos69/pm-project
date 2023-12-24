@@ -12,9 +12,10 @@
 
 // ROTAS
     // Área de formulários
-    function renderMainForm(url, directoryRender, pageName, areas, directoryStyle, optionNav) {
+    function renderMainForm(url, pageName, areas, directoryStyle, optionNav) {
     manager.get(url, (req, res) => {
         try {
+            const directoryRender = 'manager/pages/forms/form-areas'
             const msgSuccess = 'Você está na página: ' + pageName
             res.render(directoryRender, {
             name: pageName,
@@ -32,17 +33,41 @@
         // Main
         renderMainForm(
             '/forms-main',
-            'manager/areas',
-            'Página principal',
+            'Home',
             formsAreas.main
         );
-            // ADICIONAR O BGL DE AREA FORM
+           // Area de ações de conteúdos
+           renderMainForm(
+            '/forms-main/forms-area',
+            'Áreas de conhecimento',
+            formsAreas.areas
+        );
+            // Areas especificas
+                // Humanas
+                renderMainForm(
+                    '/forms-main/forms-area/humans',
+                    'Humanas',
+                    formsAreas.humans
+                );
+                // Linguagens
+                renderMainForm(
+                    '/forms-main/forms-area/languages',
+                    'Linguagens',
+                    formsAreas.languages
+                );
+                // Natureza
+                renderMainForm(
+                    '/forms-main/forms-area/nature',
+                    'Natureza',
+                    formsAreas.nature
+                );
 
-    // Formulários
-    function renderForms(url, directoryRender, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
+    // Formulários add
+    function renderFormsAdd(url, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
         manager.route(url)
             .get(async (req, res) => {
                 try {
+                    const directoryRender = 'manager/pages/forms/add/form-add'
                     const lowerCaseFormsPage = formsPage.toLowerCase();
                     const findVariableByName = await models[findVariableForDB].find();
                     res.render(directoryRender, {
@@ -78,102 +103,90 @@
     }
     // Humanas 
         // Geografia
-        renderForms(
-            '/forms-main/forms-area/humans/geography',
-            'manager/pages/forms/humans/form-geography',
+        renderFormsAdd(
+            '/forms-main/forms-area/humans/geography/add',
             'Geografia',
             'geography',
             'Geography'
             );
         // História
-        renderForms(
-            '/forms-main/forms-area/humans/history',
-            'manager/pages/forms/humans/form-history',
+        renderFormsAdd(
+            '/forms-main/forms-area/humans/history/add',
             'História',
             'history',
             'History'
             );
         // Filosofia
-        renderForms(
-            '/forms-main/forms-area/humans/philosophy',
-            'manager/pages/forms/humans/form-philosophy',
+        renderFormsAdd(
+            '/forms-main/forms-area/humans/philosophy/add',
             'Filosofia',
             'philosophy',
             'Philosophy'
             );
         // Sociologia
-        renderForms(
-            '/forms-main/forms-area/humans/sociology',
-            'manager/pages/forms/humans/form-sociology',
+        renderFormsAdd(
+            '/forms-main/forms-area/humans/sociology/add',
             'Sociologia',
             'sociology',
             'Sociology',
             );
     // Linguagens 
         // Artes
-        renderForms(
-            '/forms-main/forms-area/language/art',
-            'manager/pages/forms/languages/form-art',
+        renderFormsAdd(
+            '/forms-main/forms-area/language/art/add',
             'Artes',
             'art',
             'Art'
             );
         // Redação
-        renderForms(
-            '/forms-main/forms-area/language/essay',
-            'manager/pages/forms/languages/form-essay',
+        renderFormsAdd(
+            '/forms-main/forms-area/language/essay/add',
             'Redação',
             'essay',
             'Essay'
             );
         // Literatura
-        renderForms(
-            '/forms-main/forms-area/language/literature',
-            'manager/pages/forms/language/form-literature',
+        renderFormsAdd(
+            '/forms-main/forms-area/language/literature/add',
             'Literatura',
             'literature',
             'Literature'
             );
         // Português
-        renderForms(
-            '/forms-main/forms-area/language/portuguese',
-            'manager/pages/forms/languages/form-portuguese',
+        renderFormsAdd(
+            '/forms-main/forms-area/language/portuguese/add',
             'Português',
             'portuguese',
             'Portuguese'
             );
     // Natureza 
         // Química 
-        renderForms(
-            '/forms-main/forms-area/nature/chemical',
-            'manager/pages/forms/nature/form-chemical',
+        renderFormsAdd(
+            '/forms-main/forms-area/nature/chemical/add',
             'Química',
             'chemical',
             'Chemical'
             );
         // Física
-        renderForms(
-            '/forms-main/forms-area/nature/physical',
-            'manager/forms/nature/form-physical',
+        renderFormsAdd(
+            '/forms-main/forms-area/nature/physical/add',
             'Física',
             'physical',
             'Physical'
             );
         // Biologia
-        renderForms(
-            '/forms-main/forms-area/nature/biology',
-            'manager/pages/forms/nature/form-biology',
+        renderFormsAdd(
+            '/forms-main/forms-area/nature/biology/add',
             'Biologia',
             'biology',
             'Biology'
             );
     // Matemática
-    renderForms(
-        '/forms-main/forms-area/math',
-        'manager/pages/forms/form-math',
+    renderFormsAdd(
+        '/forms-main/forms-area/math/add',
         'Matemática',
         'math',
         'Math'
-    )
+    )    
 
 module.exports = manager
