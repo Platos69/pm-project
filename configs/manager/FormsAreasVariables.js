@@ -12,26 +12,136 @@ const formsAreas = {
     ]
 };
 
-    formsAreas.options = {
-        humans: [
-            { name: 'Geografia', url: '/manager/forms-main/forms-area/humans/geography/options' },
-            { name: 'História', url: '/manager/forms-main/forms-area/humans/history/options' },
-            { name: 'Filosofia', url: '/manager/forms-main/forms-area/humans/philosophy/options' },
-            { name: 'Sociologia', url: '/manager/forms-main/forms-area/humans/sociology/options' }
-        ],
-        languages: [
-            { name: 'Artes', url: '/manager/forms-main/forms-area/languages/art/options' },
-            { name: 'Redação', url: '/manager/forms-main/forms-area/languages/essay/options' },
-            { name: 'Literatura', url: '/manager/forms-main/forms-area/languages/literature/options' },
-            { name: 'Português', url: '/manager/forms-main/forms-area/languages/portuguese/options' }
-        ],
-        nature: [
-            { name: 'Biologia', url: '/manager/forms-main/forms-area/nature/biology/options' },
-            { name: 'Química', url: '/manager/forms-main/forms-area/nature/chemical/options' },
-            { name: 'Física', url: '/manager/forms-main/forms-area/nature/physical/options' }
-        ]
-    }    
-
+formsAreas.subAreas = {
+    humans: [
+        {
+            name: 'Geografia',
+            url: '/manager/forms-main/forms-area/humans/geography/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/humans/geography/delete',
+                edit: '/manager/forms-main/forms-area/humans/geography/edit',
+                list: '/manager/forms-main/forms-area/humans/geography/list',
+                add: '/manager/forms-main/forms-area/humans/geography/add'
+            }
+        },
+        {
+            name: 'História',
+            url: '/manager/forms-main/forms-area/humans/history/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/humans/history/delete',
+                edit: '/manager/forms-main/forms-area/humans/history/edit',
+                list: '/manager/forms-main/forms-area/humans/history/list',
+                add: '/manager/forms-main/forms-area/humans/history/add'
+            }
+        },
+        {
+            name: 'Filosofia',
+            url: '/manager/forms-main/forms-area/humans/philosophy/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/humans/philosophy/delete',
+                edit: '/manager/forms-main/forms-area/humans/philosophy/edit',
+                list: '/manager/forms-main/forms-area/humans/philosophy/list',
+                add: '/manager/forms-main/forms-area/humans/philosophy/add'
+            }
+        },
+        {
+            name: 'Sociologia',
+            url: '/manager/forms-main/forms-area/humans/sociology/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/humans/sociology/delete',
+                edit: '/manager/forms-main/forms-area/humans/sociology/edit',
+                list: '/manager/forms-main/forms-area/humans/sociology/list',
+                add: '/manager/forms-main/forms-area/humans/sociology/add'
+            }
+        },
+    ],
+    languages: [
+        {
+            name: 'Artes',
+            url: '/manager/forms-main/forms-area/languages/art/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/languages/art/delete',
+                edit: '/manager/forms-main/forms-area/languages/art/edit',
+                list: '/manager/forms-main/forms-area/languages/art/list',
+                add: '/manager/forms-main/forms-area/languages/art/add'
+            }
+        },
+        {
+            name: 'Redação',
+            url: '/manager/forms-main/forms-area/languages/essay/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/languages/essay/delete',
+                edit: '/manager/forms-main/forms-area/languages/essay/edit',
+                list: '/manager/forms-main/forms-area/languages/essay/list',
+                add: '/manager/forms-main/forms-area/languages/essay/add'
+            }
+        },
+        {
+            name: 'Literatura',
+            url: '/manager/forms-main/forms-area/languages/literature/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/languages/literature/delete',
+                edit: '/manager/forms-main/forms-area/languages/literature/edit',
+                list: '/manager/forms-main/forms-area/languages/literature/list',
+                add: '/manager/forms-main/forms-area/languages/literature/add'
+            }
+        },
+        {
+            name: 'Português',
+            url: '/manager/forms-main/forms-area/languages/portuguese/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/languages/portuguese/delete',
+                edit: '/manager/forms-main/forms-area/languages/portuguese/edit',
+                list: '/manager/forms-main/forms-area/languages/portuguese/list',
+                add: '/manager/forms-main/forms-area/languages/portuguese/add'
+            }
+        },
+    ],
+    nature: [
+        {
+            name: 'Biologia',
+            url: '/manager/forms-main/forms-area/nature/biology/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/nature/biology/delete',
+                edit: '/manager/forms-main/forms-area/nature/biology/edit',
+                list: '/manager/forms-main/forms-area/nature/biology/list',
+                add: '/manager/forms-main/forms-area/nature/biology/add'
+            }
+        },
+        {
+            name: 'Química',
+            url: '/manager/forms-main/forms-area/nature/chemical/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/nature/chemical/delete',
+                edit: '/manager/forms-main/forms-area/nature/chemical/edit',
+                list: '/manager/forms-main/forms-area/nature/chemical/list',
+                add: '/manager/forms-main/forms-area/nature/chemical/add'
+            }
+        },
+        {
+            name: 'Física',
+            url: '/manager/forms-main/forms-area/nature/physical/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/nature/physical/delete',
+                edit: '/manager/forms-main/forms-area/nature/physical/edit',
+                list: '/manager/forms-main/forms-area/nature/physical/list',
+                add: '/manager/forms-main/forms-area/nature/physical/add'
+            }
+        },
+    ],
+    math: [
+        {
+            name: 'Matemática',
+            url: '/manager/forms-main/forms-area/math/options',
+            options: {
+                delete: '/manager/forms-main/forms-area/math/delete',
+                edit: '/manager/forms-main/forms-area/math/edit',
+                list: '/manager/forms-main/forms-area/math/list',
+                add: '/manager/forms-main/forms-area/math/add'
+            }
+        },
+    ]
+};
 
 module.exports = formsAreas;
 

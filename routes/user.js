@@ -71,7 +71,7 @@
                   name: pageName,
                   title: `${pageName} - Page`,
                   content,
-                  style: directoryStyle || '../../main-knowledge/sub-knowledge/css/sub-knowledge.css',
+                  style: directoryStyle || '../../main-knowledge/sub-knowledge/sub-knowledge.css',
                   showNavbar: optionNav || true,
                   success_msg: msgSuccess,
                 });

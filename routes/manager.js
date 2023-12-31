@@ -47,166 +47,281 @@
                 renderMainForm(
                     '/forms-main/forms-area/humans',
                     'Humanas',
-                    formsAreas.options.humans
+                    formsAreas.subAreas.humans
                 );
                 // Linguagens
                 renderMainForm(
                     '/forms-main/forms-area/languages',
                     'Linguagens',
-                    formsAreas.options.languages
+                    formsAreas.subAreas.languages
                 );
                 // Natureza
                 renderMainForm(
                     '/forms-main/forms-area/nature',
                     'Natureza',
-                    formsAreas.options.nature
+                    formsAreas.subAreas.nature
                 );
         
         // Formulário opções
-        function renderOptionsForm(url, pageName, areas, directoryStyle, optionNav) {
-            manager.get(url, (req, res) => {
+        function renderOptionsForm(url, pageName, area, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
+            manager.get(url, async (req, res) => {
                 try {
-                    const directoryRender = 'manager/pages/forms/form-areas'
-                    const msgSuccess = 'Você está na página: ' + pageName
+                    const directoryRender = 'manager/pages/forms/options/main';
+                    const msgSuccess = 'Você está na página: ' + pageName;
+                    const content = await models[findVariableForDB].find().sort({ data: 'desc' });
+
+                    const mappedArea = {
+                        name: area.name,
+                        options: {
+                            delete: `${area.options.delete}`,
+                            edit: `${area.options.edit}`,
+                            list: area.options.list,
+                            add: area.options.add,
+                        },
+                    };
+        
                     res.render(directoryRender, {
-                    name: pageName,
-                    title: `${pageName} - Page`,
-                    areas: areas || false, 
-                    style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
-                    showNavbar: optionNav || true,
-                    success_msg: msgSuccess });
+                        name: pageName,
+                        title: `${pageName} - Page`,
+                        areas: [mappedArea] || false, 
+                        content,
+                        style: directoryStyle || '../../../../../manager/main-forms/main-forms.css',
+                        showNavbar: optionNav || true,
+                        success_msg: msgSuccess,
+                    });
                 } catch (err) {
                     console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
                     res.status(500).send('Erro interno do servidor');
                 }
-                });
-            }
+            });
+        }
 
-            // Formulários add
-            function renderFormsAdd(url, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
-                manager.route(url)
-                    .get(async (req, res) => {
-                        try {
-                            const directoryRender = 'manager/pages/forms/add/form-add'
-                            const lowerCaseFormsPage = formsPage.toLowerCase();
-                            const findVariableByName = await models[findVariableForDB].find();
-                            res.render(directoryRender, {
-                                urlPost: '/manager' + url,
-                                name: formsPage,
-                                title: `Formulário de ${lowerCaseFormsPage} - Page`,
-                                style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
-                                showNavbar: optionNav || true,
-                                success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
-                                findVariableByName
-                            });
-                        } catch (err) {
-                            console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
-                            res.status(500).send('Erro interno do servidor');
-                        }
-                    })
-                    .post(async (req, res) => {
-                        try {
-                            const { titleContent, descriptionContent, documentationsContent, topic } = req.body;
-                            const newEntity = new models[findVariableForDB]({
-                                titleContent,
-                                descriptionContent,
-                                documentationsContent,
-                                topics: topic
-                            });
-                            await newEntity.save();
-                            res.redirect('/');
-                        } catch (err) {
-                            console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
-                            res.status(500).send('Erro interno do servidor');
-                        }
-                    });
-            }
-            // Humanas 
+         // Areas do conhecimento 
+             // Humanas 
                 // Geografia
-                renderFormsAdd(
-                    '/forms-main/forms-area/humans/geography/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/humans/geography/options',
                     'Geografia',
+                    formsAreas.subAreas.humans.find(area => area.name === 'Geografia'),
                     'geography',
                     'Geography'
                     );
                 // História
-                renderFormsAdd(
-                    '/forms-main/forms-area/humans/history/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/humans/history/options',
                     'História',
+                    formsAreas.subAreas.humans.find(area => area.name === 'História'),
                     'history',
                     'History'
                     );
                 // Filosofia
-                renderFormsAdd(
-                    '/forms-main/forms-area/humans/philosophy/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/humans/philosophy/options',
                     'Filosofia',
+                    formsAreas.subAreas.humans.find(area => area.name === 'Filosofia'),
                     'philosophy',
-                    'Philosophy'
+                    'Philosophy',
                     );
                 // Sociologia
-                renderFormsAdd(
-                    '/forms-main/forms-area/humans/sociology/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/humans/sociology/options',
                     'Sociologia',
+                    formsAreas.subAreas.humans.find(area => area.name === 'Sociologia'),
                     'sociology',
                     'Sociology',
                     );
             // Linguagens 
                 // Artes
-                renderFormsAdd(
-                    '/forms-main/forms-area/language/art/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/language/art/options',
                     'Artes',
+                    formsAreas.subAreas.languages.find(area => area.name === 'Artes'),
                     'art',
                     'Art'
                     );
                 // Redação
-                renderFormsAdd(
-                    '/forms-main/forms-area/language/essay/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/language/essay/options',
                     'Redação',
+                    formsAreas.subAreas.languages.find(area => area.name === 'Redação'),
                     'essay',
                     'Essay'
                     );
                 // Literatura
-                renderFormsAdd(
-                    '/forms-main/forms-area/language/literature/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/language/literature/options',
                     'Literatura',
+                    formsAreas.subAreas.languages.find(area => area.name === 'Literatura'),
                     'literature',
                     'Literature'
                     );
                 // Português
-                renderFormsAdd(
-                    '/forms-main/forms-area/language/portuguese/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/language/portuguese/options',
                     'Português',
+                    formsAreas.subAreas.languages.find(area => area.name === 'Português'),
                     'portuguese',
                     'Portuguese'
                     );
             // Natureza 
                 // Química 
-                renderFormsAdd(
-                    '/forms-main/forms-area/nature/chemical/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/nature/chemical/options',
                     'Química',
+                    formsAreas.subAreas.nature.find(area => area.name === 'Química'),
                     'chemical',
                     'Chemical'
                     );
                 // Física
-                renderFormsAdd(
-                    '/forms-main/forms-area/nature/physical/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/nature/physical/options',
                     'Física',
+                    formsAreas.subAreas.nature.find(area => area.name === 'Física'),
                     'physical',
                     'Physical'
                     );
                 // Biologia
-                renderFormsAdd(
-                    '/forms-main/forms-area/nature/biology/add',
+                renderOptionsForm(
+                    '/forms-main/forms-area/nature/biology/options',
                     'Biologia',
+                    formsAreas.subAreas.nature.find(area => area.name === 'Biologia'),
                     'biology',
                     'Biology'
                     );
             // Matemática
-            renderFormsAdd(
-                '/forms-main/forms-area/math/add',
+            renderOptionsForm(
+                '/forms-main/forms-area/math/options',
                 'Matemática',
+                formsAreas.subAreas.math.find(area => area.name === 'Matemática'),
                 'math',
                 'Math'
             )    
+
+                // Formulários add
+                function renderFormsAdd(url, formsPage, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
+                    manager.route(url)
+                        .get(async (req, res) => {
+                            try {
+                                const directoryRender = 'manager/pages/forms/options/add/form-add'
+                                const lowerCaseFormsPage = formsPage.toLowerCase();
+                                const findVariableByName = await models[findVariableForDB].find();
+                                res.render(directoryRender, {
+                                    urlPost: '/manager' + url,
+                                    name: formsPage,
+                                    title: `Formulário de ${lowerCaseFormsPage} - Page`,
+                                    style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
+                                    showNavbar: optionNav || true,
+                                    success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
+                                    findVariableByName
+                                });
+                            } catch (err) {
+                                console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
+                                res.status(500).send('Erro interno do servidor');
+                            }
+                        })
+                        .post(async (req, res) => {
+                            try {
+                                const { titleContent, descriptionContent, documentationsContent, topic } = req.body;
+                                const newEntity = new models[findVariableForDB]({
+                                    titleContent,
+                                    descriptionContent,
+                                    documentationsContent,
+                                    topics: topic
+                                });
+                                await newEntity.save();
+                                res.redirect('/');
+                            } catch (err) {
+                                console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
+                                res.status(500).send('Erro interno do servidor');
+                            }
+                        });
+                }
+                // Humanas 
+                    // Geografia
+                    renderFormsAdd(
+                        '/forms-main/forms-area/humans/geography/add',
+                        'Geografia',
+                        'geography',
+                        'Geography'
+                        );
+                    // História
+                    renderFormsAdd(
+                        '/forms-main/forms-area/humans/history/add',
+                        'História',
+                        'history',
+                        'History'
+                        );
+                    // Filosofia
+                    renderFormsAdd(
+                        '/forms-main/forms-area/humans/philosophy/add',
+                        'Filosofia',
+                        'philosophy',
+                        'Philosophy'
+                        );
+                    // Sociologia
+                    renderFormsAdd(
+                        '/forms-main/forms-area/humans/sociology/add',
+                        'Sociologia',
+                        'sociology',
+                        'Sociology',
+                        );
+                // Linguagens 
+                    // Artes
+                    renderFormsAdd(
+                        '/forms-main/forms-area/language/art/add',
+                        'Artes',
+                        'art',
+                        'Art'
+                        );
+                    // Redação
+                    renderFormsAdd(
+                        '/forms-main/forms-area/language/essay/add',
+                        'Redação',
+                        'essay',
+                        'Essay'
+                        );
+                    // Literatura
+                    renderFormsAdd(
+                        '/forms-main/forms-area/language/literature/add',
+                        'Literatura',
+                        'literature',
+                        'Literature'
+                        );
+                    // Português
+                    renderFormsAdd(
+                        '/forms-main/forms-area/language/portuguese/add',
+                        'Português',
+                        'portuguese',
+                        'Portuguese'
+                        );
+                // Natureza 
+                    // Química 
+                    renderFormsAdd(
+                        '/forms-main/forms-area/nature/chemical/add',
+                        'Química',
+                        'chemical',
+                        'Chemical'
+                        );
+                    // Física
+                    renderFormsAdd(
+                        '/forms-main/forms-area/nature/physical/add',
+                        'Física',
+                        'physical',
+                        'Physical'
+                        );
+                    // Biologia
+                    renderFormsAdd(
+                        '/forms-main/forms-area/nature/biology/add',
+                        'Biologia',
+                        'biology',
+                        'Biology'
+                        );
+                // Matemática
+                renderFormsAdd(
+                    '/forms-main/forms-area/math/add',
+                    'Matemática',
+                    'math',
+                    'Math'
+                )    
 
 module.exports = manager

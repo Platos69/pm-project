@@ -1,10 +1,13 @@
 // CARREGANDO MODULOS
     // Modulos principais
     const express = require('express')
-    const handlebars = require('express-handlebars')
-    const { engine } = require('express-handlebars')
+    const Handlebars = require('handlebars');
+    const {
+        allowInsecurePrototypeAccess,
+    } = require("@handlebars/allow-prototype-access");
+    const exphbs = require('express-handlebars');
     const app = express()
-    const path = require("path")
+    const path = require('path')
     const bodyParser = require('body-parser')
     const mongoose = require('mongoose')
     const http = require('http');
@@ -31,13 +34,15 @@
     app.use(bodyParser.urlencoded({extended: true}))
     app.use(bodyParser.json())
     // Handlebars
-    app.engine('handlebars', engine({defaultLayout: 'main', runtimeOptions: {
-        allowProtoPropertiesByDefault: true,
-        allowProtoMethodsByDefault: true,
-        },
-    }),
-    ),
-    app.set('view engine', 'handlebars')
+    const hbs = exphbs.create({
+        defaultLayout: "main",
+        extname: "handlebars",
+        handlebars: allowInsecurePrototypeAccess(Handlebars),
+    });
+    
+    app.engine("handlebars", hbs.engine);
+    app.set("view engine", "handlebars");
+    app.set("views", "views");
          // Mongoose
          const uri = 'mongodb://localhost:27017/PmProject'
         // const uri = 'mongodb+srv://Pm_Project:Dan%402905@pmproject.niy0xfw.mongodb.net/?retryWrites=true&w=majority'
