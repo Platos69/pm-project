@@ -1,0 +1,31 @@
+<h2>{{name}}</h2>
+<hr>
+<a href='{{areas.[0].options.add}}'><button class='btn btn-success'>Adicionar conteúdo</button></a>
+
+{{#each content}}
+  <div class='card mt-4'>
+    <div class='card-body'>
+      <h4>Nome da categoria: {{this.titleContent}}</h4>
+      <small>Tipo da categoria: {{this.descriptionContent}}</small><br>
+      <small>Data de criação: {{this.data}}</small><br>
+      <table>
+        <tr>
+          <td>
+            <a href='{{../areas.[0].options.edit}}/{{this._id}}' class='btn btn-success mt-2'>Editar</a>
+          </td>
+          <td>
+            <form action='{{../areas.[0].options.delete}}' method='POST'>
+              <input type='hidden' name='id' value='{{this._id}}'>
+              <button type='submit' class='btn btn-outline-danger mx-2 mt-2'>Deletar</button>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+{{/each}}
+
+{{#unless content}}
+  <hr>
+  <h4 class='mt-2'>Não há conteúdo registrado</h4>
+{{/unless}}

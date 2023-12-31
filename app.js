@@ -89,7 +89,7 @@
     app.use('/manager', manager)
 
 // OUTROS
-const PORT = 8081
+const PORT = 8082
 app.listen(PORT, () => {
     console.log(`[PM] Servidor rodando na porta http://localhost:${PORT}`)
 })
