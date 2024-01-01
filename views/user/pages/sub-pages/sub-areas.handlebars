@@ -1,11 +1,11 @@
 <h2>{{name}}</h2>
-
+<hr>
 {{#if content.length}}
     {{#each content}}
         <div class='card mt-4'>
             <div class='card-body'>
-                <h4>Nome da categoria: {{titleContent}}</h4>
-                <small>Tipo da categoria: {{descriptionContent}}</small><br>
+                <h4>{{titleContent}}</h4>
+                <small>Descrição: {{descriptionContent}}</small><br>
                 <small>Data de criação: {{data}}</small><br>
             </div>
         </div>

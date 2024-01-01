@@ -24,7 +24,7 @@
             showNavbar: optionNav || true});
         } catch (err) {
             req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
-            res.redirect('/'); 
+            res.redirect('/manager/forms-main/'); 
         }
         });
     }
@@ -78,15 +78,16 @@
         
                     res.render(directoryRender, {
                         name: pageName,
+                        modelName: findVariableForDB,
                         title: `${pageName} - Page`,
                         areas: [mappedArea] || false, 
                         content,
-                        style: directoryStyle || '../../../../../manager/main-forms/main-forms.css',
+                        style: directoryStyle || '../../../../../../manager/main-forms/main-forms.css',
                         showNavbar: optionNav || true,
                     });
                 } catch (err) {
                     req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
-                    res.redirect('/'); 
+                    res.redirect('/manager/forms-main/'); 
                 }
             });
         }
@@ -209,7 +210,7 @@
                                 });
                             } catch (err) {
                                 req.flash('error_msg', '[INTERNAL ERROR] Houve um erro ao tentar entrar no formulário' + err);
-                                res.redirect('/'); 
+                                res.redirect('/manager/forms-main/'); 
                             }
                         })
                         .post(async (req, res) => {
@@ -223,10 +224,10 @@
                                 });
                                 await newEntity.save();
                                 req.flash('success_msg', 'Conteúdo adicionado com sucesso.');
-                                res.redirect('/'); 
+                                res.redirect('/manager/forms-main/'); 
                             } catch (err) {
                                 req.flash('error_msg', '[INTERNAL ERROR] Houve um erro tentar ao enviar o formulário! Error: ' + err);
-                                res.redirect('/'); 
+                                res.redirect('/manager/forms-main/'); 
                             }
                         });
                 }
@@ -317,27 +318,35 @@
                     'math',
                     'Math'
                 )    
+    // Editar conteúdos
 
     // Deletar conteúdos
-    manager.post('/deletar-conteudo/:id', async (req, res) => {
+    manager.post('/forms-main/forms-area/options/forms-delete/:model/:id', async (req, res) => {
+        const modelName = req.params.model;
         const contentId = req.params.id;
     
         try {
+            // Verifique se o modelo existe
+            if (!models[modelName]) {
+                req.flash('error_msg', '[INTERNAL ERROR] Modelo do banco de dados não encontrado.');
+                return res.redirect('/manager/forms-main/');
+            }
+    
             // Encontre o conteúdo pelo ID e remova-o
-            const result = await models.Geography.findByIdAndRemove(contentId);
+            const result = await models[modelName].findByIdAndRemove(contentId);
     
             if (!result) {
-                req.flash('error_msg', '[INTERNAL ERROR] Conteúdo não encontrado.');
-                return res.redirect('/');
+                req.flash('error_msg', '[INTERNAL ERROR] Conteúdo não encontrado no banco de dados.');
+                return res.redirect('/manager/forms-main/');
             }
     
             req.flash('success_msg', 'Conteúdo removido com sucesso.');
-            res.redirect('/'); 
+            res.redirect('/manager/forms-main/');  // Redirecione para a página principal após a remoção
         } catch (err) {
             console.error('Erro ao deletar conteúdo:', err);
             req.flash('error_msg', '[INTERNAL ERROR] Erro ao deletar conteúdo: ' + err);
-            res.redirect('/');
+            res.redirect('/manager/forms-main/');
         }
-    });  
+    });
 
 module.exports = manager
