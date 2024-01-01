@@ -18,7 +18,6 @@ formsAreas.subAreas = {
             name: 'Geografia',
             url: '/manager/forms-main/forms-area/humans/geography/options',
             options: {
-                delete: '/manager/forms-main/forms-area/humans/geography/delete',
                 edit: '/manager/forms-main/forms-area/humans/geography/edit',
                 list: '/manager/forms-main/forms-area/humans/geography/list',
                 add: '/manager/forms-main/forms-area/humans/geography/add'
@@ -28,7 +27,6 @@ formsAreas.subAreas = {
             name: 'História',
             url: '/manager/forms-main/forms-area/humans/history/options',
             options: {
-                delete: '/manager/forms-main/forms-area/humans/history/delete',
                 edit: '/manager/forms-main/forms-area/humans/history/edit',
                 list: '/manager/forms-main/forms-area/humans/history/list',
                 add: '/manager/forms-main/forms-area/humans/history/add'
@@ -38,7 +36,6 @@ formsAreas.subAreas = {
             name: 'Filosofia',
             url: '/manager/forms-main/forms-area/humans/philosophy/options',
             options: {
-                delete: '/manager/forms-main/forms-area/humans/philosophy/delete',
                 edit: '/manager/forms-main/forms-area/humans/philosophy/edit',
                 list: '/manager/forms-main/forms-area/humans/philosophy/list',
                 add: '/manager/forms-main/forms-area/humans/philosophy/add'
@@ -48,7 +45,6 @@ formsAreas.subAreas = {
             name: 'Sociologia',
             url: '/manager/forms-main/forms-area/humans/sociology/options',
             options: {
-                delete: '/manager/forms-main/forms-area/humans/sociology/delete',
                 edit: '/manager/forms-main/forms-area/humans/sociology/edit',
                 list: '/manager/forms-main/forms-area/humans/sociology/list',
                 add: '/manager/forms-main/forms-area/humans/sociology/add'
@@ -60,7 +56,6 @@ formsAreas.subAreas = {
             name: 'Artes',
             url: '/manager/forms-main/forms-area/languages/art/options',
             options: {
-                delete: '/manager/forms-main/forms-area/languages/art/delete',
                 edit: '/manager/forms-main/forms-area/languages/art/edit',
                 list: '/manager/forms-main/forms-area/languages/art/list',
                 add: '/manager/forms-main/forms-area/languages/art/add'
@@ -70,7 +65,6 @@ formsAreas.subAreas = {
             name: 'Redação',
             url: '/manager/forms-main/forms-area/languages/essay/options',
             options: {
-                delete: '/manager/forms-main/forms-area/languages/essay/delete',
                 edit: '/manager/forms-main/forms-area/languages/essay/edit',
                 list: '/manager/forms-main/forms-area/languages/essay/list',
                 add: '/manager/forms-main/forms-area/languages/essay/add'
@@ -80,7 +74,6 @@ formsAreas.subAreas = {
             name: 'Literatura',
             url: '/manager/forms-main/forms-area/languages/literature/options',
             options: {
-                delete: '/manager/forms-main/forms-area/languages/literature/delete',
                 edit: '/manager/forms-main/forms-area/languages/literature/edit',
                 list: '/manager/forms-main/forms-area/languages/literature/list',
                 add: '/manager/forms-main/forms-area/languages/literature/add'
@@ -90,7 +83,6 @@ formsAreas.subAreas = {
             name: 'Português',
             url: '/manager/forms-main/forms-area/languages/portuguese/options',
             options: {
-                delete: '/manager/forms-main/forms-area/languages/portuguese/delete',
                 edit: '/manager/forms-main/forms-area/languages/portuguese/edit',
                 list: '/manager/forms-main/forms-area/languages/portuguese/list',
                 add: '/manager/forms-main/forms-area/languages/portuguese/add'
@@ -102,7 +94,6 @@ formsAreas.subAreas = {
             name: 'Biologia',
             url: '/manager/forms-main/forms-area/nature/biology/options',
             options: {
-                delete: '/manager/forms-main/forms-area/nature/biology/delete',
                 edit: '/manager/forms-main/forms-area/nature/biology/edit',
                 list: '/manager/forms-main/forms-area/nature/biology/list',
                 add: '/manager/forms-main/forms-area/nature/biology/add'
@@ -112,7 +103,6 @@ formsAreas.subAreas = {
             name: 'Química',
             url: '/manager/forms-main/forms-area/nature/chemical/options',
             options: {
-                delete: '/manager/forms-main/forms-area/nature/chemical/delete',
                 edit: '/manager/forms-main/forms-area/nature/chemical/edit',
                 list: '/manager/forms-main/forms-area/nature/chemical/list',
                 add: '/manager/forms-main/forms-area/nature/chemical/add'
@@ -122,7 +112,6 @@ formsAreas.subAreas = {
             name: 'Física',
             url: '/manager/forms-main/forms-area/nature/physical/options',
             options: {
-                delete: '/manager/forms-main/forms-area/nature/physical/delete',
                 edit: '/manager/forms-main/forms-area/nature/physical/edit',
                 list: '/manager/forms-main/forms-area/nature/physical/list',
                 add: '/manager/forms-main/forms-area/nature/physical/add'
@@ -134,7 +123,6 @@ formsAreas.subAreas = {
             name: 'Matemática',
             url: '/manager/forms-main/forms-area/math/options',
             options: {
-                delete: '/manager/forms-main/forms-area/math/delete',
                 edit: '/manager/forms-main/forms-area/math/edit',
                 list: '/manager/forms-main/forms-area/math/list',
                 add: '/manager/forms-main/forms-area/math/add'

@@ -64,24 +64,21 @@
     app.get('/', (req, res) => {
         try {
             const pageName = 'Home'
-            const msgSuccess = 'Você está na página: ' + pageName
             res.render('index', {
                 title: `${pageName} - Page`,
                 style: 'home.css',
                 showNavbar: true,
-                success_msg: msgSuccess,
             }, (err, html) => {
                 if (err) {
-                    console.error(`[PM] Houve um erro ao renderizar a página "${pageName}" erro:`, err);
-                    res.status(500).send('Erro interno do servidor');
+                    req.flash('error_msg', '[INTERNAL ERROR] Erro ao renderizar a página ', pageName, '! Error: ' + err);
+                    res.redirect('/'); 
                     return;
                 }
                 res.send(html);
-                console.log(`[PM] Você entrou na aba "${pageName}"`);
             });
         } catch (err) {
-            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-            res.status(500).send('Erro interno do servidor');
+            req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
+            res.redirect('/'); 
         }
     });
     // User

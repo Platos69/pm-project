@@ -17,17 +17,15 @@
     user.get(url, (req, res) => {
       try {
         const directoryRender = 'user/areas'
-        const msgSuccess = 'Você está na página: ' + pageName
         res.render(directoryRender, {
           name: pageName,
           title: `${pageName} - Page`,
           areas: areas || false, 
           style: directoryStyle || '../../main-knowledge/css/main-knowledge.css',
-          showNavbar: optionNav || true,
-          success_msg: msgSuccess });
+          showNavbar: optionNav || true });
       } catch (err) {
-        console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-        res.status(500).send('Erro interno do servidor');
+        req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
+        res.redirect('/'); 
       }
     });
   }
@@ -63,7 +61,6 @@
           function renderSubPages(url, pageName, findVariableByName, findVariableForDB, directoryStyle, optionNav) {
             user.get(url, async (req, res) => {
               try {
-                const msgSuccess = 'Você está na página: ' + pageName;
                 const directoryRender = 'user/pages/sub-pages/sub-areas'
                 const content = await models[findVariableForDB].find().sort({ data: 'desc' });
           
@@ -73,11 +70,10 @@
                   content,
                   style: directoryStyle || '../../main-knowledge/sub-knowledge/sub-knowledge.css',
                   showNavbar: optionNav || true,
-                  success_msg: msgSuccess,
                 });
               } catch (err) {
-                console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-                res.status(500).send('Erro interno do servidor');
+                req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
+                res.redirect('/'); 
               }
             });
           }

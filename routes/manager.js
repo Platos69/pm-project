@@ -16,17 +16,15 @@
     manager.get(url, (req, res) => {
         try {
             const directoryRender = 'manager/pages/forms/form-areas'
-            const msgSuccess = 'Você está na página: ' + pageName
             res.render(directoryRender, {
             name: pageName,
             title: `${pageName} - Page`,
             areas: areas || false, 
             style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
-            showNavbar: optionNav || true,
-            success_msg: msgSuccess });
+            showNavbar: optionNav || true});
         } catch (err) {
-            console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-            res.status(500).send('Erro interno do servidor');
+            req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
+            res.redirect('/'); 
         }
         });
     }
@@ -67,13 +65,11 @@
             manager.get(url, async (req, res) => {
                 try {
                     const directoryRender = 'manager/pages/forms/options/main';
-                    const msgSuccess = 'Você está na página: ' + pageName;
                     const content = await models[findVariableForDB].find().sort({ data: 'desc' });
 
                     const mappedArea = {
                         name: area.name,
                         options: {
-                            delete: `${area.options.delete}`,
                             edit: `${area.options.edit}`,
                             list: area.options.list,
                             add: area.options.add,
@@ -87,11 +83,10 @@
                         content,
                         style: directoryStyle || '../../../../../manager/main-forms/main-forms.css',
                         showNavbar: optionNav || true,
-                        success_msg: msgSuccess,
                     });
                 } catch (err) {
-                    console.error(`[PM] Houve um erro ao entrar na página "${pageName}", erro:`, err);
-                    res.status(500).send('Erro interno do servidor');
+                    req.flash('error_msg', '[INTERNAL ERROR] Erro ao entrar na página ', pageName, '! Error: ' + err);
+                    res.redirect('/'); 
                 }
             });
         }
@@ -210,13 +205,11 @@
                                     name: formsPage,
                                     title: `Formulário de ${lowerCaseFormsPage} - Page`,
                                     style: directoryStyle || '../../../../manager/main-forms/main-forms.css',
-                                    showNavbar: optionNav || true,
-                                    success_msg: msgSuccess = 'Você está no formulário: ' + formsPage,
-                                    findVariableByName
+                                    showNavbar: optionNav || true
                                 });
                             } catch (err) {
-                                console.error(`[PM] Houve um erro ao entrar no formulário "${formsPage}", erro:`, err);
-                                res.status(500).send('Erro interno do servidor');
+                                req.flash('error_msg', '[INTERNAL ERROR] Houve um erro ao tentar entrar no formulário' + err);
+                                res.redirect('/'); 
                             }
                         })
                         .post(async (req, res) => {
@@ -229,10 +222,11 @@
                                     topics: topic
                                 });
                                 await newEntity.save();
-                                res.redirect('/');
+                                req.flash('success_msg', 'Conteúdo adicionado com sucesso.');
+                                res.redirect('/'); 
                             } catch (err) {
-                                console.error(`[PM] Houve um erro ao enviar o formulário "${formsPage}", erro:`, err);
-                                res.status(500).send('Erro interno do servidor');
+                                req.flash('error_msg', '[INTERNAL ERROR] Houve um erro tentar ao enviar o formulário! Error: ' + err);
+                                res.redirect('/'); 
                             }
                         });
                 }
@@ -323,5 +317,27 @@
                     'math',
                     'Math'
                 )    
+
+    // Deletar conteúdos
+    manager.post('/deletar-conteudo/:id', async (req, res) => {
+        const contentId = req.params.id;
+    
+        try {
+            // Encontre o conteúdo pelo ID e remova-o
+            const result = await models.Geography.findByIdAndRemove(contentId);
+    
+            if (!result) {
+                req.flash('error_msg', '[INTERNAL ERROR] Conteúdo não encontrado.');
+                return res.redirect('/');
+            }
+    
+            req.flash('success_msg', 'Conteúdo removido com sucesso.');
+            res.redirect('/'); 
+        } catch (err) {
+            console.error('Erro ao deletar conteúdo:', err);
+            req.flash('error_msg', '[INTERNAL ERROR] Erro ao deletar conteúdo: ' + err);
+            res.redirect('/');
+        }
+    });  
 
 module.exports = manager

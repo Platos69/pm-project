@@ -14,10 +14,9 @@
             <a href='{{../areas.[0].options.edit}}/{{this._id}}' class='btn btn-success mt-2'>Editar</a>
           </td>
           <td>
-            <form action='{{../areas.[0].options.delete}}' method='POST'>
-              <input type='hidden' name='id' value='{{this._id}}'>
-              <button type='submit' class='btn btn-outline-danger mx-2 mt-2'>Deletar</button>
-            </form>
+          <form action="/manager/deletar-conteudo/{{_id}}" method="POST">
+                    <button type="submit">Deletar</button>
+          </form>
           </td>
         </tr>
       </table>
