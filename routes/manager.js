@@ -319,7 +319,85 @@
                     'Math'
                 )    
     // Editar conteúdos
-
+    manager.get('/editar-conteudo/:model/:id', async (req, res) => {
+        const modelName = req.params.model;
+        const contentId = req.params.id;
+    
+        try {
+            // Verifique se o modelo existe
+            if (!models[modelName]) {
+                req.flash('error_msg', 'Modelo não encontrado.');
+                res.redirect('/manager/forms-main/');
+            }
+    
+            // Encontre o conteúdo pelo ID
+            const content = await models[modelName].findById(contentId);
+    
+            if (!content) {
+                req.flash('error_msg', 'Conteúdo não encontrado.');
+                res.redirect('/manager/forms-main/');
+            }
+    
+            res.render('manager/pages/forms/options/edit/form-edit', {
+                name: modelName,
+                content,
+            });
+        } catch (err) {
+            console.error('Erro ao editar conteúdo:', err);
+            req.flash('error_msg', 'Erro ao editar conteúdo: ' + err);
+            res.redirect('/manager/forms-main/');
+        }
+    });
+    
+    // Rota para processar a edição
+    manager.post('/editar-conteudo/:model/:id', async (req, res) => {
+        const modelName = req.params.model;
+        const contentId = req.params.id;
+    
+        try {
+            // Verifique se o modelo existe
+            if (!models[modelName]) {
+                req.flash('error_msg', 'Modelo não encontrado.');
+                res.redirect('/manager/forms-main/');
+            }
+    
+            // Encontre o conteúdo pelo ID
+            const content = await models[modelName].findById(contentId);
+    
+            if (!content) {
+                req.flash('error_msg', 'Conteúdo não encontrado.');
+                res.redirect('/manager/forms-main/');
+            }
+    
+            // Atualize os campos existentes
+            content.titleContent = req.body.titleContent;
+            content.descriptionContent = req.body.descriptionContent;
+            content.documentationsContent = req.body.documentationsContent;
+    
+            // Atualize os tópicos existentes
+            content.topics = req.body.existingTopics;
+    
+            // Adicione novos tópicos, se houver
+            if (req.body.newTitleTopic && req.body.newSubjectTopic) {
+                const newTopic = {
+                    titleTopic: req.body.newTitleTopic,
+                    subjectTopic: req.body.newSubjectTopic,
+                };  
+                content.topics.push(newTopic);
+            }
+    
+            // Salve as alterações
+            await content.save();
+    
+            req.flash('success_msg', 'Conteúdo editado com sucesso.');
+            res.redirect('/manager/forms-main/');
+        } catch (err) {
+            console.error('Erro ao editar conteúdo:', err);
+            req.flash('error_msg', 'Erro ao editar conteúdo: ' + err);
+            res.redirect('/manager/forms-main/');
+        }
+    });
+    
     // Deletar conteúdos
     manager.post('/forms-main/forms-area/options/forms-delete/:model/:id', async (req, res) => {
         const modelName = req.params.model;

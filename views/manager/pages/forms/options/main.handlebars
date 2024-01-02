@@ -1,5 +1,5 @@
 <h2>{{name}}</h2>
-<div class="hidden">
+<div class='hidden'>
   {{modelName}}
 </div>
 <hr>
@@ -14,11 +14,11 @@
     <table>
       <tr>
         <td>
-          <a href='{{../areas.[0].options.edit}}/{{this._id}}' class='btn btn-success mt-2'>Editar</a>
+          <a href='/manager/editar-conteudo/{{../modelName}}/{{_id}}' class='btn btn-success mt-2'>Editar</a>
         </td>
         <td>
-          <form action="/manager/forms-main/forms-area/options/forms-delete/{{../modelName}}/{{_id}}" method="POST">
-            <button class="btn btn-outline-danger mx-2 mt-2" type="submit">Deletar</button>
+          <form action='/manager/forms-main/forms-area/options/forms-delete/{{../modelName}}/{{_id}}' method='POST'>
+            <button class='btn btn-outline-danger mx-2 mt-2' type='submit'>Deletar</button>
           </form>
         </td>
       </tr>
