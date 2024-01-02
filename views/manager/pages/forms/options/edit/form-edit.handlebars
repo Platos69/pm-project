@@ -17,15 +17,14 @@
             {{#each content.topics}}
             <div class="mt-3 card">
                 <div class="card-body">
-                    <p><strong>Tópico {{addOne @index}}</strong></p>
+                    <p><strong>Tópico {{@index}}</strong></p>
                     <div class="existing-topic">
                         <label class="mt-1" for="titleTopic">Título do tópico:</label>
                         <input class="form-control" type="text" name="existingTopics[{{@index}}][titleTopic]"
                             value="{{titleTopic}}" placeholder="Título do Tópico" required>
-
                         <label class="mt-1" for="subjectTopic">Conteúdo do tópico:</label>
-                        <input class="form-control" type="text" name="existingTopics[{{@index}}][subjectTopic]"
-                            value="{{subjectTopic}}" placeholder="Detalhamento do Tópico" required>
+                        <textarea class="form-control" type="text" name="existingTopics[{{@index}}][subjectTopic]"
+                            placeholder="Detalhamento do Tópico" rows="4" required>{{subjectTopic}}</textarea>
                     </div>
                 </div>
             </div>
@@ -41,9 +40,10 @@
     </div>
 </form>
 
-<script>
 
-    let topicCount = {{content.topics.length }};
+
+<script>
+    let topicCount = {{content.topics.length}} - 1;
 
     function adicionarTopico() {
         const container = document.getElementById('newTopicsContainer');
