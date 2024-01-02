@@ -1,57 +1,57 @@
-<h2>Editar Conteúdo da Matéria: <strong>{{name}}</strong></h2>
+<h2>Editar conteúdo: <strong>{{content.titleContent}}</strong></h2>
 
-<form class="mt-4" action="/manager/editar-conteudo/{{name}}/{{content._id}}" method="POST">
+<form action="/manager/editar-conteudo/{{name}}/{{content._id}}" method="POST">
     <div class="card">
         <div class="card-body">
-            <label for="titleContent">Novo Título do Conteúdo:</label>
-            <input class="form-control" type="text" id="titleContent" name="titleContent" value="{{content.titleContent}}" required>
+            <label for="titleContent">Título do conteúdo:</label>
+            <input class="form-control" type="text" id="titleContent" name="titleContent"
+                value="{{content.titleContent}}" required>
 
-            <label class="mt-1" for="descriptionContent">Nova Descrição do Conteúdo:</label>
-            <textarea class="form-control" type="text" id="descriptionContent" name="descriptionContent" rows="3" required>{{content.descriptionContent}}</textarea>
+            <label class="mt-1" for="descriptionContent">Descrição do conteúdo:</label>
+            <textarea class="form-control" type="text" id="descriptionContent" name="descriptionContent" required>{{content.descriptionContent}}</textarea>
 
-            <label class="mt-1" for="documentationsContent">Nova Documentação:</label>
-            <textarea class="form-control" type="text" id="documentationsContent" name="documentationsContent" rows="3" required>{{content.documentationsContent}}</textarea>
+            <label class="mt-1" for="documentationsContent">Documentações:</label>
+            <textarea class="form-control" type="text" id="documentationsContent" name="documentationsContent" rows="3"
+            required>{{content.documentationsContent}}</textarea>
 
-            <div id="topicContainer" class="mt-3">
-                {{#each content.topics}}
-                <div class="mt-3 card">
-                    <div class="card-body">
-                        <p><strong>Tópico {{@index}}</strong></p>
-                        <div class="topic">
-                            <label class="mt-1" for="titleTopic">Título do tópico:</label>
-                            <input class="form-control" type="text" name="existingTopics[{{@index}}][titleTopic]" value="{{titleTopic}}" required>
+            {{#each content.topics}}
+            <div class="mt-3 card">
+                <div class="card-body">
+                    <p><strong>Tópico {{addOne @index}}</strong></p>
+                    <div class="existing-topic">
+                        <label class="mt-1" for="titleTopic">Título do tópico:</label>
+                        <input class="form-control" type="text" name="existingTopics[{{@index}}][titleTopic]"
+                            value="{{titleTopic}}" placeholder="Título do Tópico" required>
 
-                            <label class="mt-1" for="subjectTopic">Conteúdo do tópico:</label>
-                            <textarea class="form-control" type="text" name="existingTopics[{{@index}}][subjectTopic]" rows="4" required>{{subjectTopic}}</textarea>
-                        </div>
+                        <label class="mt-1" for="subjectTopic">Conteúdo do tópico:</label>
+                        <input class="form-control" type="text" name="existingTopics[{{@index}}][subjectTopic]"
+                            value="{{subjectTopic}}" placeholder="Detalhamento do Tópico" required>
                     </div>
                 </div>
-                {{/each}}
             </div>
+            {{/each}}
 
-            <div id="newTopicsContainer" class="mt-3">
-                <!-- Container para novos tópicos -->
-            </div>
-
+            <div id="newTopicsContainer"></div>
             <div class="mt-3">
-                <button class="btn btn-outline-success" type="button" onclick="adicionarTopico()">Adicionar Tópico</button>
+                <button class="btn btn-outline-success" type="button" onclick="adicionarTopico()">+</button>
 
-                <button class="btn btn-success" type="submit">Salvar Edições</button>
+                <button class="btn btn-success" type="submit">Finalizar</button>
             </div>
         </div>
     </div>
 </form>
 
 <script>
-    let topicCount = {{content.topics.length}};
+
+    let topicCount = {{content.topics.length }};
 
     function adicionarTopico() {
         const container = document.getElementById('newTopicsContainer');
         const divCard = document.createElement('div');
         divCard.className = 'mt-3 card';
         const divCardBody = document.createElement('div');
-        divCardBody.className = 'card-body'
-        const pTopicCount = document.createElement('p')
+        divCardBody.className = 'card-body';
+        const pTopicCount = document.createElement('p');
         pTopicCount.innerHTML = `<strong>Tópico ${topicCount + 1}</strong>`;
         const divSingleTopic = document.createElement('div');
         divSingleTopic.className = 'topic';
@@ -64,9 +64,9 @@
             <textarea class="form-control" type="text" name="newTopics[${topicCount}][subjectTopic]" rows="4" placeholder="Conteúdo do tópico" required></textarea>
         `;
 
-        divCardBody.appendChild(pTopicCount)
-        divCardBody.appendChild(divSingleTopic)
-        divCard.appendChild(divCardBody)
+        divCardBody.appendChild(pTopicCount);
+        divCardBody.appendChild(divSingleTopic);
+        divCard.appendChild(divCardBody);
         container.appendChild(divCard);
         topicCount++;
     }

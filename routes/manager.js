@@ -349,7 +349,6 @@
         }
     });
     
-    // Rota para processar a edição
     manager.post('/editar-conteudo/:model/:id', async (req, res) => {
         const modelName = req.params.model;
         const contentId = req.params.id;
@@ -358,7 +357,7 @@
             // Verifique se o modelo existe
             if (!models[modelName]) {
                 req.flash('error_msg', 'Modelo não encontrado.');
-                res.redirect('/manager/forms-main/');
+                return res.redirect('/manager/forms-main/');
             }
     
             // Encontre o conteúdo pelo ID
@@ -366,7 +365,7 @@
     
             if (!content) {
                 req.flash('error_msg', 'Conteúdo não encontrado.');
-                res.redirect('/manager/forms-main/');
+                return res.redirect('/manager/forms-main/');
             }
     
             // Atualize os campos existentes
@@ -378,12 +377,10 @@
             content.topics = req.body.existingTopics;
     
             // Adicione novos tópicos, se houver
-            if (req.body.newTitleTopic && req.body.newSubjectTopic) {
-                const newTopic = {
-                    titleTopic: req.body.newTitleTopic,
-                    subjectTopic: req.body.newSubjectTopic,
-                };  
-                content.topics.push(newTopic);
+            if (req.body.newTopics) {
+                req.body.newTopics.forEach(newTopic => {
+                    content.topics.push(newTopic);
+                });
             }
     
             // Salve as alterações
